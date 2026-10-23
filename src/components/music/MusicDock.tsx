@@ -1,33 +1,35 @@
 "use client";
 
-// The music dock: a small vinyl switch fixed to the bottom-left of the home page, so music can be turned on from any
-// screen size. When it's on, Spotify's player sits above the switch (it shows the song, artist and cover itself),
-// playing random hits that change as the visitor scrolls (see src/lib/motion/music.ts).
+// The music dock: a small vinyl switch fixed to the bottom-left of the home page, so beats can be turned on from any
+// screen size. While a beat plays, the dock credits it (CC BY asks for title, artist and licence).
 
-import { useEffect, useRef } from "react";
 import { RecordIcon } from "@/components/motion/PreferenceToggles";
-import { setPlayerHost, turnMusicOff, turnMusicOn, useMusic } from "@/lib/motion/music";
+import { musicLicense } from "@/content/music";
+import { turnMusicOff, turnMusicOn, useMusic } from "@/lib/motion/music";
+
+const external = { target: "_blank", rel: "noopener noreferrer" } as const;
 
 export function MusicDock() {
-  const { on, playing, failed } = useMusic();
-  const host = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setPlayerHost(host.current);
-    return () => setPlayerHost(null);
-  }, []);
+  const { on, current, playing } = useMusic();
 
   return (
     <aside className="music-dock" aria-label="Music" data-music={on ? "on" : undefined} data-playing={playing ? "" : undefined}>
-      <div className="music-player" hidden={!on}>
-        {/* Spotify's player is inserted here the first time music is turned on */}
-        <div ref={host} className="music-embed" />
-        <p className="music-note">
-          {failed
-            ? "Spotify couldn’t be reached. Try again in a moment."
-            : "Random Nigerian and international hits that change as you scroll. Log in to Spotify for full songs; otherwise you’ll hear 30-second previews."}
+      {on && current && (
+        <p className="music-credit">
+          <span className="type-meta">Now playing · {current.style}, slowed</span>
+          <span>
+            <a href={current.source} {...external}>
+              {current.title}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>{" "}
+            by {current.artist} ·{" "}
+            <a href={musicLicense.url} {...external}>
+              {musicLicense.name}
+              <span className="sr-only"> licence (opens in a new tab)</span>
+            </a>
+          </span>
         </p>
-      </div>
+      )}
       <button
         type="button"
         className="music-button"
