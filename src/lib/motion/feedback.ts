@@ -27,13 +27,6 @@ export function primeAudio() {
   }
 }
 
-/** The shared audio context (created on first use; call from a user gesture so browsers let it start). */
-export function getAudioContext() {
-  primeAudio();
-  if (context?.state === "suspended") void context.resume();
-  return context;
-}
-
 /** Plays a sound with a little random detune so repeated taps don't sound identical. */
 export function playSound(name: SoundName, { pitch = 1, volume = 0.45 } = {}) {
   if (!isSoundOn() || !context) return;
