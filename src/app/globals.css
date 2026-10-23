@@ -1852,4 +1852,113 @@ main [id] {
       margin-right: 16px;
     }
   }
+
+
+  /* ===========================================================================
+     Journey (Phase 9) — src/components/journey
+     ========================================================================= */
+
+  .journey-group {
+    margin-top: clamp(48px, 8vh, 84px);
+  }
+
+  .journey-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 16px;
+    font-family: var(--font-hand-stack);
+    font-size: var(--fs-label);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  /* Ruled list: a firm line on top, hairlines between rows */
+  .journey-list {
+    margin-top: 18px;
+    border-top: 1.5px solid var(--hairline-strong);
+  }
+
+  .journey-row {
+    display: grid;
+    grid-template-columns: clamp(200px, 24vw, 280px) 1fr;
+    gap: clamp(18px, 3vw, 44px);
+    padding-block: clamp(22px, 2.6vw, 32px);
+    border-bottom: 1.5px solid var(--hairline);
+  }
+
+  .journey-where {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .journey-tile {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    color: var(--accent-ink);
+
+    & svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  .journey-place {
+    padding-top: 3px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .journey-role {
+    font-family: var(--font-hand-stack);
+    font-size: clamp(1.3rem, 2vw, 1.65rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .journey-bullets {
+    display: grid;
+    gap: 6px;
+    max-width: 40em;
+    margin-top: 12px;
+
+    & li {
+      display: flex;
+      gap: 10px;
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      color: var(--body);
+    }
+  }
+
+  .build-row {
+    display: grid;
+    grid-template-columns: clamp(200px, 24vw, 280px) 1fr;
+    align-items: baseline;
+    gap: 6px clamp(18px, 3vw, 44px);
+    padding-block: 14px;
+    border-bottom: 1.5px solid var(--hairline);
+  }
+
+  @media (max-width: 620px) {
+    .journey-row,
+    .build-row {
+      grid-template-columns: 1fr;
+    }
+
+    .journey-row {
+      gap: 14px;
+    }
+  }
 }
