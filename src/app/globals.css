@@ -294,3 +294,166 @@ main [id] {
   box-shadow: var(--shadow-vinyl-accent);
   color: #fff;
 }
+
+/* Component styles sit in the components layer so Tailwind utilities (hidden, mt-*, …) can override them. */
+@layer components {
+  /* ===========================================================================
+     Primitives (src/components/ui)
+     ========================================================================= */
+
+  /* Pill buttons: .btn + one of -dark / -cream / -accent */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.875rem;
+    padding: 0 1.375rem;
+    border-radius: 999px;
+    font-size: 0.906rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    transition:
+      filter 0.2s ease,
+      transform 0.2s var(--ease-out-soft);
+
+    @media (hover: hover) {
+      &:hover {
+        filter: brightness(1.06);
+      }
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  .btn-dark {
+    background: var(--vinyl-dark);
+    box-shadow: var(--shadow-vinyl-dark);
+    color: var(--on-dark);
+  }
+
+  .btn-cream {
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    color: var(--ink);
+  }
+
+  .btn-accent,
+  .btn-primary {
+    background: var(--vinyl-accent);
+    box-shadow: var(--shadow-vinyl-accent);
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    color: var(--ink);
+  }
+
+  /* Tech chips */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: var(--radius-chip);
+    background: var(--vinyl-cream);
+    box-shadow:
+      0 8px 14px -10px rgb(42 36 48 / 0.45),
+      inset 0 2px 3px rgb(255 255 255 / 0.9),
+      inset 0 -3px 6px rgb(154 143 124 / 0.28);
+    font-family: var(--font-mono-stack);
+    font-size: 0.78rem;
+    letter-spacing: 0.01em;
+    color: var(--body);
+  }
+
+  /* Moulded card frame */
+  .vinyl-card {
+    border-radius: var(--radius-card);
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl-lg);
+  }
+
+  /* Section tag: number seal + handwritten label */
+  .seal {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+  }
+
+  .seal svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .seal span {
+    position: relative;
+    font-family: var(--font-display-stack);
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-stretch: 112%;
+    line-height: 1;
+    color: var(--on-dark);
+  }
+
+  /* Hand-drawn underline: drawn on as it scrolls into view where supported; otherwise static */
+  .hand-ink path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hand-ink path {
+        animation: ink-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+
+  @keyframes ink-draw {
+    from {
+      stroke-dashoffset: 100;
+    }
+  }
+
+  /* Arrow glyphs that nudge when their link is hovered */
+  .nudge-r,
+  .nudge-d,
+  .nudge-u,
+  .nudge-ur {
+    display: inline-block;
+    transition: transform 0.25s var(--ease-out-soft);
+  }
+
+  /* Hover styles only where a real hover exists, so nothing sticks after a tap on a phone */
+  @media (hover: hover) {
+    :is(a, button):hover > .nudge-r {
+      transform: translateX(3px);
+    }
+
+    :is(a, button):hover > .nudge-d {
+      transform: translateY(3px);
+    }
+
+    :is(a, button):hover > .nudge-u {
+      transform: translateY(-3px);
+    }
+
+    :is(a, button):hover > .nudge-ur {
+      transform: translate(2px, -2px);
+    }
+  }
+}
