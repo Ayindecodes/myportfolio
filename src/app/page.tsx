@@ -1,14 +1,15 @@
 import { cacheLife } from "next/cache";
-import { About } from "@/components/About";
-import { Contact } from "@/components/Contact";
-import { Hero } from "@/components/Hero";
-import { Projects } from "@/components/Projects";
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
-import { Skills } from "@/components/Skills";
-import { site } from "@/content/site";
+import { Hero } from "@/components/hero/Hero";
+import { Work } from "@/components/work/Work";
+import { About } from "@/components/about/About";
+import { Journey } from "@/components/journey/Journey";
+import { Contact } from "@/components/contact/Contact";
+import { Footer } from "@/components/contact/Footer";
+import { LogoReel } from "@/components/nav/LogoReel";
+import { SiteNav } from "@/components/nav/SiteNav";
+import { education, site } from "@/content/site";
 
-/** Cached at build time and refreshed at most monthly; only feeds the copyright and badge year. */
+/** Cached at build time and refreshed at most monthly; only feeds the copyright year. */
 async function getCurrentYear() {
   "use cache";
   cacheLife("max");
@@ -25,6 +26,7 @@ const personSchema = {
   email: `mailto:${site.email}`,
   address: { "@type": "PostalAddress", addressLocality: "Lagos", addressCountry: "NG" },
   sameAs: site.socials.map((social) => social.href),
+  alumniOf: education.map((item) => ({ "@type": "EducationalOrganization", name: item.institution })),
 };
 
 export default async function Home() {
@@ -32,15 +34,15 @@ export default async function Home() {
 
   return (
     <>
-      <SiteHeader />
+      <SiteNav logo={<LogoReel />} />
       <main id="main" tabIndex={-1} className="outline-none">
-        <Hero year={year} />
+        <Hero />
+        <Work />
         <About />
-        <Projects />
-        <Skills />
+        <Journey />
         <Contact />
       </main>
-      <SiteFooter year={year} />
+      <Footer year={year} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }}
