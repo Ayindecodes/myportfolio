@@ -1,0 +1,6 @@
+<!-- Hero prop: padlock shackle. Same 600×600 canvas as padlock-body.svg so the two stack exactly;
+     the shackle is a separate layer so the hero can pop it open (task 71). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <path filter="url(#vinyl)" fill="none" stroke="#ebe4d6" stroke-width="58" stroke-linecap="round"
+        d="M206 318 L206 214 C206 96 394 96 394 214 L394 318"/>
+</svg>

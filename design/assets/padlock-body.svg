@@ -1,0 +1,22 @@
+<!-- Hero prop: inflatable vinyl padlock body (security-first). Shackle lives in padlock-shackle.svg. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <defs>
+    <radialGradient id="keyholeDepth" cx="0.5" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#2b2632"/>
+      <stop offset="1" stop-color="#0f0d12"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="300" cy="548" rx="176" ry="20" fill="#2a2430" opacity="0.28" filter="url(#contactShadow)"/>
+  <rect x="140" y="262" width="320" height="262" rx="72" fill="#8055f5" filter="url(#vinyl)"/>
+  <!-- welded seams of an inflatable -->
+  <g fill="none" stroke="#5b33cc" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 12" opacity="0.75">
+    <path d="M168 330 Q300 316 432 330"/>
+    <path d="M168 458 Q300 472 432 458"/>
+  </g>
+  <!-- keyhole -->
+  <g fill="url(#keyholeDepth)">
+    <circle cx="300" cy="372" r="30"/>
+    <path d="M286 386 L314 386 L322 440 Q300 452 278 440 Z"/>
+  </g>
+  <ellipse cx="292" cy="362" rx="9" ry="6" fill="#ffffff" opacity="0.18"/>
+</svg>
