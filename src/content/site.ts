@@ -17,7 +17,6 @@ export const site = {
   role: "Full-Stack Developer",
   location: "Lagos, Nigeria",
   locationShort: "Lagos, NG",
-  availability: "Open to work",
   description:
     "Ayinde Ojikutu is a full-stack developer in Lagos building web apps with React, Next.js, Python and Django, with a focus on fintech and security.",
   email: "techblazecodes@gmail.com",
@@ -32,38 +31,36 @@ export const site = {
 } as const;
 
 export const navLinks = [
+  { label: "Work", href: "#work" },
   { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
+  { label: "Journey", href: "#journey" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
-export const hero = {
-  statement: "I build full-stack web apps, from the API to the last pixel.",
-  badge: {
-    title: "Full-Stack Developer",
-    stack: "React · Next.js · Django",
-    buildingLabel: "Building",
-    building: "Quicksurf",
+// 02 · About (copy from docs/redesign/CONTENT.md §12–13)
+export const about = {
+  // Each role carries its own article, so "an API builder" reads right.
+  roles: ["a full-stack developer", "an API builder", "a fintech tinkerer"],
+  paragraph:
+    "I care as much about what happens after you tap Pay as about how the button feels: the request that only goes through once, the webhook that confirms it, the receipt that lands. Most of my work lives where payments, APIs and interfaces meet, and I’m happiest owning all three.",
+  // Confirmed by Ayinde: company work never reaches the public GitHub account, so everything shown here is personal.
+  personalNote:
+    "Everything in Selected work is a personal project. My day-to-day work is for a company, and that code lives in private repositories, so you won’t find it on my GitHub.",
+  portrait: {
+    // Placeholder until Ayinde sends a real portrait (see design/README.md).
+    alt: "Ayinde as a vinyl toy: a purple hoodie, glowing eyes and a laptop with a code sticker",
+    label: "me, in vinyl",
   },
 };
 
-export const about = {
-  yearsBuilding: "2+",
-  statement:
-    "I’m Ayinde, a full-stack developer in Lagos. I build web apps end to end: React and Next.js interfaces on top of Python and Django APIs, with a security-first habit and a soft spot for fintech.",
+export const github = {
+  user: "Ayindecodes",
+  /**
+   * The contribution calendar stays off the home page while this account's graph undercounts: recent commits use
+   * an email that GitHub credits to another account. It always shows on /styleguide for review.
+   */
+  showCalendar: false,
 };
-
-export const capabilities = [
-  "Full-stack web applications",
-  "REST API design",
-  "Payments and wallet flows",
-  "Authentication and security",
-  "Responsive, accessible interfaces",
-  "Mobile apps with React Native",
-  "Browser automation and testing",
-  "Web3 front-ends",
-];
 
 export const stack = [
   { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "HTML & CSS"] },
@@ -73,19 +70,80 @@ export const stack = [
   { group: "Tooling", items: ["Playwright", "Git & GitHub", "CI/CD"] },
 ];
 
-export const howIWork =
-  "I like owning a feature from the database to the screen. On the backend that means input validation, idempotent payment flows and secrets that never leave the server. On the frontend it means pages that load fast, work on a phone and stay usable from a keyboard. I write things down as I go, from specs to architecture notes, so the next person can pick the work up.";
-
-export const education = [
+// 03 · Journey. Work history as Ayinde gave it (2026-10-23), newest first. The three current employers stay unnamed
+// by choice; titles pair with start dates in the order Ayinde listed them. Lines are written from the titles, phrased
+// professionally at Ayinde's request.
+export const experience = [
   {
-    award: "National Diploma",
-    abbreviation: "ND",
-    field: "Software Engineering",
-    institution: "Lagos City Computer College",
-    years: "2023–2025",
+    when: "May 2026 – now · hybrid",
+    place: "Company name private",
+    title: "API tester & team lead",
+    summary: "",
+    bullets: [
+      "Test APIs for correctness, reliability and edge cases before they reach users.",
+      "Lead the team, coordinating the work and keeping delivery on track.",
+    ],
+    current: true,
+  },
+  {
+    when: "Jan 2026 – now · hybrid",
+    place: "Company name private",
+    title: "Full-stack developer",
+    summary: "",
+    bullets: [
+      "Build and ship features across the stack, from the interface to the API and database behind it.",
+      "Maintain and improve existing code on both the front end and the back end.",
+    ],
+    current: true,
+  },
+  {
+    when: "Aug 2025 – now · hybrid",
+    place: "Company name private",
+    title: "UI/UX designer",
+    summary: "",
+    bullets: [
+      "Design user interfaces and user flows that turn product requirements into clear, usable screens.",
+      "Work closely with developers so designs ship as intended.",
+    ],
+    current: true,
+  },
+  {
+    when: "2024 · 6 months",
+    place: "Dervac Hub · Lagos",
+    title: "Front-end developer intern",
+    summary: "",
+    bullets: ["Turned designs into responsive web pages and reusable interface components."],
+    current: false,
   },
 ];
 
+export const education = [
+  {
+    field: "Software Engineering",
+    institution: "University of Lagos (UNILAG)",
+    years: "2022–2026",
+  },
+  {
+    field: "Software Development",
+    institution: "NIIT Ikeja",
+    years: "2025 · one year",
+  },
+];
+
+// Personal builds, dated from GitHub repo creation and last-push dates (checked 2026-10-23).
+export const buildTimeline = [
+  { when: "Apr 2026 – now", name: "Web X-Ray", note: "Started an automated website tester; still shipping updates." },
+  { when: "Apr 2026", name: "PayIntent", note: "Built a rule-based payments app in Expo and React Native." },
+  { when: "Dec 2025 – Jan 2026", name: "MediRemind", note: "Built medication reminders with email-code sign-in in Next.js." },
+  { when: "Oct 2025", name: "Keyra Protocol", note: "Shipped a landing page for a GameFi and DeFi project." },
+  { when: "Aug 2025 – Apr 2026", name: "Quicksurf", note: "Backend from August, web app from September: airtime and data payments end to end." },
+  { when: "Oct 2024", name: "First public code", note: "HTML and Tailwind practice sites, the start of building in public." },
+];
+
+// 04 · Say hello (copy from docs/redesign/CONTENT.md §19)
 export const contact = {
-  lead: { before: "Let’s build something people can ", accent: "rely on", after: "." },
+  label: "Say hello",
+  heading: "Let’s build something\npeople can rely on.",
+  lead: "Email is the quickest way to reach me. One click copies the address.",
+  sticker: "Thanks for stopping by!",
 };
