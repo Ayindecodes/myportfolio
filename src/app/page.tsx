@@ -5,6 +5,7 @@ import { About } from "@/components/about/About";
 import { Journey } from "@/components/journey/Journey";
 import { Contact } from "@/components/contact/Contact";
 import { Footer } from "@/components/contact/Footer";
+import { MusicDock } from "@/components/music/MusicDock";
 import { LogoReel } from "@/components/nav/LogoReel";
 import { SiteNav } from "@/components/nav/SiteNav";
 import { education, site } from "@/content/site";
@@ -43,6 +44,7 @@ export default async function Home() {
         <Contact />
       </main>
       <Footer year={year} />
+      <MusicDock />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema).replace(/</g, "\\u003c") }}
