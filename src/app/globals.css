@@ -2199,7 +2199,7 @@ main [id] {
 
 
   /* ===========================================================================
-     Music (opt-in background music) — src/components/music, src/lib/motion/music.ts
+     Music (opt-in, through Spotify's player) — src/components/music, src/lib/motion/music.ts
      ========================================================================= */
 
   .music-dock {
@@ -2264,7 +2264,8 @@ main [id] {
     flex-shrink: 0;
   }
 
-  [data-music="on"] .music-record {
+  /* The record spins while music plays (the dock follows Spotify's own play state) */
+  [data-music="on"][data-playing] .music-record {
     animation: record-spin 2.4s linear infinite;
   }
 
@@ -2278,34 +2279,44 @@ main [id] {
     }
   }
 
-  /* The credit for the track that's playing (CC BY: title, artist, licence) */
-  .music-credit {
-    display: grid;
-    max-width: min(330px, calc(100vw - 32px));
-    gap: 3px;
-    padding: 10px 14px;
-    border-radius: 16px;
+  /* Spotify's player and a one-line note, above the switch */
+  .music-player {
+    width: min(340px, calc(100vw - 32px));
+    padding: 8px;
+    border-radius: 20px;
     background: rgb(241 237 228 / 0.94);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     box-shadow:
       0 0 0 1px var(--hairline),
-      0 14px 30px -18px rgb(42 36 48 / 0.55);
-    font-size: 0.8rem;
-    line-height: 1.45;
-    color: var(--body);
-    animation: credit-in 0.35s var(--ease-out-soft);
+      0 16px 34px -18px rgb(42 36 48 / 0.55);
+    animation: player-in 0.35s var(--ease-out-soft);
 
-    & a {
-      font-weight: 600;
-      color: var(--ink);
-      text-decoration-line: underline;
-      text-decoration-color: var(--hairline-strong);
-      text-underline-offset: 0.2em;
+    &[hidden] {
+      display: none;
     }
   }
 
-  @keyframes credit-in {
+  .music-embed {
+    min-height: 80px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgb(42 36 48 / 0.06);
+
+    & iframe {
+      display: block;
+      border: 0;
+    }
+  }
+
+  .music-note {
+    padding: 8px 6px 2px;
+    font-size: 0.75rem;
+    line-height: 1.45;
+    color: var(--body);
+  }
+
+  @keyframes player-in {
     from {
       opacity: 0;
       translate: 0 6px;
