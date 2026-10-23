@@ -1,0 +1,159 @@
+<!doctype html>
+<!-- Source for public/resume/resume.pdf. Verified content only (docs/redesign/CONTENT.md). Build: npm run resume -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Abdulrahman Ayinde Ojikutu, Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400&family=Kalam:wght@700&display=block" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 15mm 16mm 14mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font: 9.6pt/1.5 Geist, system-ui, sans-serif; color: #2a2620; }
+  a { color: inherit; text-decoration: none; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #8055f5; padding-bottom: 9pt; }
+  h1 { font: 700 22pt/1 Kalam, cursive; color: #141414; letter-spacing: -0.01em; }
+  .role { margin-top: 5pt; font-weight: 500; color: #46413a; }
+  .contact { text-align: right; font: 8.4pt/1.6 "Geist Mono", monospace; color: #46413a; }
+  h2 { margin: 13pt 0 6pt; font: 400 8pt/1 "Geist Mono", monospace; letter-spacing: 0.16em; text-transform: uppercase; color: #6a3fe0; }
+  .summary { margin-top: 11pt; color: #46413a; max-width: 92%; }
+  .project { margin-bottom: 8pt; break-inside: avoid; }
+  .project-head { display: flex; justify-content: space-between; gap: 12pt; }
+  .project-name { font-weight: 600; color: #141414; }
+  .project-name span { font-weight: 400; color: #6b6457; }
+  .meta { font: 8pt/1.4 "Geist Mono", monospace; color: #6b6457; white-space: nowrap; }
+  ul { margin: 2pt 0 0 12pt; }
+  li { margin-top: 1.5pt; }
+  li::marker { color: #8055f5; }
+  .stack { margin-top: 2pt; font: 8pt/1.4 "Geist Mono", monospace; color: #6b6457; }
+  .side { color: #46413a; }
+  .skills { display: grid; grid-template-columns: 82pt 1fr; row-gap: 3pt; }
+  .skills dt { font: 8pt/1.6 "Geist Mono", monospace; color: #6b6457; text-transform: uppercase; letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Abdulrahman Ayinde Ojikutu</h1>
+      <p class="role">Full-Stack Developer · Lagos, Nigeria</p>
+    </div>
+    <p class="contact">
+      <a href="mailto:techblazecodes@gmail.com">techblazecodes@gmail.com</a><br>
+      <a href="https://github.com/Ayindecodes">github.com/Ayindecodes</a><br>
+      <a href="https://www.linkedin.com/in/ayindecodes">linkedin.com/in/ayindecodes</a>
+    </p>
+  </header>
+
+  <p class="summary">Full-stack developer building web apps end to end: React and Next.js interfaces on top of Python and Django APIs. Security-first by habit, with most of my work where payments, APIs and interfaces meet.</p>
+
+  <h2>Experience</h2>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">API tester &amp; team lead <span>· company name private, hybrid</span></p>
+      <p class="meta">May 2026–present</p>
+    </div>
+    <ul>
+      <li>Test APIs for correctness, reliability and edge cases before they reach users; lead the team and keep delivery on track.</li>
+    </ul>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">Full-stack developer <span>· company name private, hybrid</span></p>
+      <p class="meta">Jan 2026–present</p>
+    </div>
+    <ul>
+      <li>Build and ship features across the stack, from the interface to the API and database behind it.</li>
+    </ul>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">UI/UX designer <span>· company name private, hybrid</span></p>
+      <p class="meta">Aug 2025–present</p>
+    </div>
+    <ul>
+      <li>Design user interfaces and user flows that turn product requirements into clear, usable screens.</li>
+    </ul>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">Front-end developer intern <span>· Dervac Hub, Lagos</span></p>
+      <p class="meta">2024 · 6 months</p>
+    </div>
+    <ul>
+      <li>Turned designs into responsive web pages and reusable interface components.</li>
+    </ul>
+  </div>
+
+  <h2>Personal projects</h2>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">Quicksurf <span>· airtime and data payments</span></p>
+      <p class="meta">2025–2026 · live</p>
+    </div>
+    <ul>
+      <li>Built the Django REST backend (VTpass delivery, Paystack-funded wallets and webhooks, JWT auth, idempotent purchases, reward points) and the Next.js client (<a href="https://quicksurf-frontend.vercel.app">quicksurf-frontend.vercel.app</a>).</li>
+    </ul>
+    <p class="stack">Django REST · PostgreSQL · Redis · Paystack · Next.js · TypeScript</p>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">Web X-Ray <span>· automated website testing</span></p>
+      <p class="meta">2026 · in progress</p>
+    </div>
+    <ul>
+      <li>Explores a site you're authorised to test, runs user journeys on desktop and mobile, then writes and runs a Playwright test to confirm each failure.</li>
+    </ul>
+    <p class="stack">FastAPI · PostgreSQL · Redis · Playwright · Next.js · Tailwind CSS</p>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">PayIntent <span>· rule-based mobile payments</span></p>
+      <p class="meta">2026 · open source</p>
+    </div>
+    <ul>
+      <li>Expo app for payments with rules: hold funds until delivery is confirmed, cap spending by category, or release once work is approved.</li>
+    </ul>
+    <p class="stack">React Native · Expo · TypeScript · Zustand</p>
+  </div>
+
+  <div class="project">
+    <div class="project-head">
+      <p class="project-name">LandKrypt <span>· fractional ownership of virtual real estate</span></p>
+      <p class="meta">live</p>
+    </div>
+    <ul>
+      <li>Splits virtual properties into fractional NFTs that holders stake, vote on and earn from (<a href="https://landkrypt-fe.vercel.app">landkrypt-fe.vercel.app</a>).</li>
+    </ul>
+    <p class="stack">React · Web3 · Solidity</p>
+  </div>
+
+  <p class="side"><strong>Side builds:</strong> NobleKin Bio (bioinformatics institute website, Next.js) · MediRemind (medication reminders, Next.js and Resend) · Keyra Protocol (GameFi and DeFi landing page).</p>
+
+  <h2>Skills</h2>
+  <dl class="skills">
+    <dt>Languages</dt><dd>TypeScript, JavaScript, Python, HTML &amp; CSS</dd>
+    <dt>Frontend</dt><dd>React, Next.js, Tailwind CSS, Framer Motion, React Native &amp; Expo</dd>
+    <dt>Backend</dt><dd>Django &amp; DRF, FastAPI, Node.js, REST APIs, JWT auth</dd>
+    <dt>Data &amp; infra</dt><dd>PostgreSQL, Redis, MongoDB, Docker, AWS (EC2, S3), Vercel, Render</dd>
+    <dt>Tooling</dt><dd>Playwright, Git &amp; GitHub, CI/CD</dd>
+  </dl>
+
+  <h2>Education</h2>
+  <div class="project-head">
+    <p class="project-name">Software Engineering <span>· University of Lagos (UNILAG)</span></p>
+    <p class="meta">2022–2026</p>
+  </div>
+  <div class="project-head">
+    <p class="project-name">Software Development <span>· NIIT Ikeja, one-year programme</span></p>
+    <p class="meta">2025</p>
+  </div>
+</body>
+</html>
