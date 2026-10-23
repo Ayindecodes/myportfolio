@@ -5,7 +5,7 @@
 
 import { useEffect, useRef } from "react";
 import { navLinks, site } from "@/content/site";
-import { MotionToggle, SoundToggle } from "@/components/motion/PreferenceToggles";
+import { MotionToggle, MusicToggle, SoundToggle } from "@/components/motion/PreferenceToggles";
 
 const elsewhere = [
   ...site.socials.map((social) => ({ label: social.label, href: social.href, external: true })),
@@ -90,6 +90,7 @@ export function QuickMenu({ open, onClose, active }: { open: boolean; onClose: (
             <div className="mt-8 flex flex-wrap gap-2">
               <SoundToggle />
               <MotionToggle />
+              <MusicToggle />
             </div>
             <p className="menu-hint type-meta mt-8">
               Tip: press <kbd>⌘</kbd> <kbd>K</kbd> anywhere to open this menu.
