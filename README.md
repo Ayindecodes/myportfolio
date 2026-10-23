@@ -48,6 +48,7 @@ Everything visual is generated from sources in `design/`. Edit the source, then 
 | `npm run resume` | `public/resume/resume.pdf` from `design/resume/resume.html` (checks it stays on one page) |
 | `npm run og` | The link-preview image `src/app/opengraph-image.png` from `design/og/og.html` |
 | `npm run wordmark` | The hero's balloon letters and the nav logo as SVG outlines |
+| `FFMPEG=… node design/music/build-music.mjs` | The background music in `public/music/` (see Music below) |
 
 ## Motion, sound and accessibility
 
@@ -55,6 +56,20 @@ Everything visual is generated from sources in `design/`. Edit the source, then 
 - **Touch and hover.** Press physics work on touch. Hover effects only apply where a real mouse exists, so nothing sticks after a tap.
 - **No JavaScript.** Everything renders as server HTML first. With JavaScript off, the page still shows every section and link (both Work lists show, one after the other).
 - **Design notes.** Design decisions are in `docs/redesign/BRIEF.md` and all copy in `docs/redesign/CONTENT.md`. `/styleguide` (not indexed) shows the tokens, components and motion.
+
+## Music
+
+Visitors can turn on background music with the vinyl **Music** switch at the bottom-left (also in the menu). Nothing plays or downloads until they do; browsers only allow sound after a tap or click anyway. Once it's on, each section has its own track, Afro and global in turn, and the music crossfades when scrolling settles in a new section. Each track picks up where it left off, and the music pauses while the tab is hidden.
+
+| Section | Track | Style |
+| --- | --- | --- |
+| Hero | "Afrobeast" by Joseph Sacco | Afrobeats |
+| Work | "Hot Amapiano Beats" by Alex Morgan | Amapiano |
+| About | "Coffee Jelly" by Purrple Cat | Lo-fi |
+| Journey | "Afro House" by Alex Morgan | Afro house |
+| Contact | "Funky vibe" by Heavenless | Disco funk |
+
+All five are from [Free Music Archive](https://freemusicarchive.org) under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). The player credits the track that's playing. They were shortened to at most 2½ minutes, loudness-matched and re-encoded by `design/music/build-music.mjs`. To change the playlist, edit `src/content/music.ts` and the list in that script, then run it. Only use music whose licence allows it: commercial hit songs can't be hosted on the site.
 
 ## Contact
 
@@ -72,4 +87,5 @@ Deploy on Vercel. Pushing a branch builds a preview; merging to `main` updates t
 
 - Fonts: Geist and Geist Mono, Fredoka and Kalam, all under the SIL Open Font License, loaded through `next/font`. The balloon letters are Fredoka outlines.
 - Technology logos are from [Simple Icons](https://simpleicons.org) (CC0).
+- Music: "Afrobeast" by Joseph Sacco, "Hot Amapiano Beats" and "Afro House" by Alex Morgan, "Coffee Jelly" by Purrple Cat and "Funky vibe" by Heavenless, all CC BY 4.0 via Free Music Archive, shortened and re-encoded.
 - The tactile approach was studied from [yashb.xyz](https://yashb.xyz). Only the techniques were adopted; every image, sound, line of copy and line of code here is original.
