@@ -1,32 +1,23 @@
-// Background music through Spotify's official player (its iFrame API). Off until the visitor taps Music: only then
-// does Spotify's script load and its player appear in the music dock (it must stay visible while it plays).
-// Songs are random: each time scrolling settles in a new section a new one plays, Nigerian and international in
-// turn, with no repeats until every song in that group has played; when a song ends, the next one starts.
-// Visitors logged in to Spotify in their browser hear full songs; everyone else gets Spotify's 30-second previews.
+// Background beats (opt-in). Off until the visitor turns them on, and nothing downloads before then. Once on, beats
+// are random: each time scrolling settles in a new section, the current beat crossfades into a new one (chill and
+// Afro in turn, no repeats until a group has played through), and near the end of a beat the next one fades in.
+// Each beat plays through its own Web Audio gain, because iOS ignores the volume of media elements. Music pauses
+// while the tab is hidden.
 
 import { useSyncExternalStore } from "react";
-import { songs, type Song } from "@/content/music";
+import { tracks, type Track } from "@/content/music";
+import { getAudioContext } from "./feedback";
 
-type PlaybackUpdate = { data?: { isPaused?: boolean; position?: number; duration?: number; playingURI?: string } };
-type Controller = {
-  loadUri(uri: string, preferVideo?: boolean, startAt?: number): void;
-  play(): void;
-  pause(): void;
-  addListener(event: "ready" | "playback_update" | "error", callback: (event: PlaybackUpdate) => void): void;
-};
-type IframeApi = {
-  createController(element: HTMLElement, options: { uri: string; width: string; height: number }, callback: (controller: Controller) => void): void;
-};
-type SpotifyWindow = Window & { onSpotifyIframeApiReady?: (api: IframeApi) => void };
-
-const SECTIONS = ["top", "work", "about", "journey", "contact"];
-const SETTLE_MS = 900; // a section has to stay in view this long before the song changes
+const LEVEL = 0.4; // beats sit under the interface pops
+const CROSSFADE = 2; // seconds
+const SETTLE_MS = 900; // a section has to stay in view this long before the beat changes
 const LINE = 0.4; // a section counts as "in view" once its top passes 40% of the screen
+const SECTIONS = ["top", "work", "about", "journey", "contact"];
 
-type State = { on: boolean; current: Song | null; playing: boolean; failed: boolean };
-let state: State = { on: false, current: null, playing: false, failed: false };
+type State = { on: boolean; current: Track | null; playing: boolean };
+let state: State = { on: false, current: null, playing: false };
 const listeners = new Set<() => void>();
-const offState: State = { on: false, current: null, playing: false, failed: false };
+const offState: State = { on: false, current: null, playing: false };
 
 function set(next: Partial<State>) {
   state = { ...state, ...next };
@@ -38,91 +29,88 @@ const subscribe = (listener: () => void) => {
   return () => listeners.delete(listener);
 };
 
-/** Music state for React: on or off, the song playing, and whether Spotify reports it playing. */
+/** Music state for React: on or off, and the beat that's playing. */
 export function useMusic() {
   return useSyncExternalStore(subscribe, () => state, () => offState);
 }
 
 // ---- random order -----------------------------------------------------------------------------------------
 
-/** A shuffled bag per group: every song plays once before any repeats, and never twice in a row. */
-const bags = new Map<Song["origin"], Song[]>();
-function draw(origin: Song["origin"]) {
-  let bag = bags.get(origin);
+const bags = new Map<Track["group"], Track[]>();
+function draw(group: Track["group"]) {
+  let bag = bags.get(group);
   if (!bag?.length) {
-    bag = songs.filter((song) => song.origin === origin);
+    bag = tracks.filter((track) => track.group === group);
     for (let i = bag.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [bag[i], bag[j]] = [bag[j], bag[i]];
     }
-    if (bag.length > 1 && bag[bag.length - 1].uri === state.current?.uri) bag.unshift(bag.pop()!);
-    bags.set(origin, bag);
+    if (bag.length > 1 && bag[bag.length - 1].id === state.current?.id) bag.unshift(bag.pop()!);
+    bags.set(group, bag);
   }
   return bag.pop()!;
 }
 
-/** Alternate Nigerian and international; the very first pick is either. */
-function nextSong() {
-  const origin: Song["origin"] =
-    state.current ? (state.current.origin === "Nigerian" ? "International" : "Nigerian") : Math.random() < 0.5 ? "Nigerian" : "International";
-  return draw(origin);
+/** Chill and Afro in turn; the first pick is either. */
+function nextTrack() {
+  const group: Track["group"] = state.current ? (state.current.group === "Chill" ? "Afro" : "Chill") : Math.random() < 0.5 ? "Chill" : "Afro";
+  return draw(group);
 }
 
-// ---- Spotify ----------------------------------------------------------------------------------------------
+// ---- playback ---------------------------------------------------------------------------------------------
 
-let apiPromise: Promise<IframeApi> | null = null;
-function loadSpotify() {
-  apiPromise ??= new Promise<IframeApi>((resolve, reject) => {
-    (window as SpotifyWindow).onSpotifyIframeApiReady = resolve;
-    const script = document.createElement("script");
-    script.src = "https://open.spotify.com/embed/iframe-api/v1";
-    script.async = true;
-    script.onerror = () => {
-      apiPromise = null;
-      reject(new Error("Spotify could not be reached"));
-    };
-    document.head.appendChild(script);
-  });
-  return apiPromise;
-}
+type Voice = { element: HTMLAudioElement; gain: GainNode; stopTimer: number };
+const voices = new Map<string, Voice>();
 
-let host: HTMLElement | null = null;
-let controller: Controller | null = null;
-
-/** The dock registers the element the Spotify player goes in. */
-export function setPlayerHost(element: HTMLElement | null) {
-  host = element;
-}
-
-/** Spotify's iframe has no title; give it one that names the song, for screen readers. */
-function titleFrame(song: Song) {
-  host?.querySelector("iframe")?.setAttribute("title", `Spotify player: ${song.title} by ${song.artist}`);
-}
-
-let advanced = false; // the current song has already handed over to the next one
-
-function play(song: Song) {
-  set({ current: song });
-  titleFrame(song);
-  advanced = false;
-  if (!controller) return;
-  controller.loadUri(song.uri); // commands queue inside the controller until the new song has loaded
-  controller.play();
-}
-
-/**
- * When a song (or its 30-second preview) runs out, carry on with the next one. Spotify signals the end by the
- * position reaching the duration (it doesn't report a pause), then goes quiet. A pause mid-song stays a pause.
- */
-function onPlayback(event: PlaybackUpdate) {
-  const { isPaused, position = 0, duration = 0, playingURI } = event.data ?? {};
-  if (playingURI && playingURI !== state.current?.uri) return; // a late update from the previous song
-  const ended = duration > 0 && position >= duration - 250;
-  set({ playing: isPaused === false && !ended });
-  if (ended && state.on && !advanced) {
-    advanced = true;
-    play(nextSong());
+function voiceFor(track: Track, context: AudioContext) {
+  let voice = voices.get(track.id);
+  if (!voice) {
+    const element = new Audio(track.src);
+    element.preload = "auto";
+    const gain = context.createGain();
+    gain.gain.value = 0;
+    context.createMediaElementSource(element).connect(gain).connect(context.destination);
+    const created: Voice = { element, gain, stopTimer: 0 };
+    // Near the end of the beat that's playing, fade into the next one so the music never stops.
+    element.addEventListener("timeupdate", () => {
+      const left = element.duration - element.currentTime;
+      if (state.on && state.current?.id === track.id && left < CROSSFADE + 0.25) play(nextTrack());
+    });
+    voice = created;
+    voices.set(track.id, voice);
   }
+  return voice;
+}
+
+function fade(voice: Voice, to: number, seconds: number) {
+  const context = getAudioContext();
+  if (!context) return;
+  const now = context.currentTime;
+  voice.gain.gain.cancelScheduledValues(now);
+  voice.gain.gain.setValueAtTime(voice.gain.gain.value, now);
+  voice.gain.gain.linearRampToValueAtTime(to, now + seconds);
+}
+
+function fadeOutAndPause(voice: Voice, seconds: number) {
+  fade(voice, 0, seconds);
+  window.clearTimeout(voice.stopTimer);
+  voice.stopTimer = window.setTimeout(() => voice.element.pause(), seconds * 1000 + 60);
+}
+
+function play(track: Track) {
+  const context = getAudioContext();
+  if (!context || state.current?.id === track.id) return;
+  set({ current: track });
+  for (const [id, voice] of voices) if (id !== track.id) fadeOutAndPause(voice, CROSSFADE);
+  const voice = voiceFor(track, context);
+  window.clearTimeout(voice.stopTimer);
+  // a beat drawn again starts over if it was close to its end
+  if (voice.element.duration && voice.element.duration - voice.element.currentTime < 20) voice.element.currentTime = 0;
+  voice.element
+    .play()
+    .then(() => set({ playing: true }))
+    .catch(() => turnMusicOff()); // e.g. the browser refused to start audio
+  fade(voice, LEVEL, CROSSFADE);
 }
 
 // ---- following the scroll ---------------------------------------------------------------------------------
@@ -145,42 +133,32 @@ const onScroll = () => {
     const now = sectionInView();
     if (!state.on || now === section) return;
     section = now;
-    play(nextSong());
+    play(nextTrack());
   }, SETTLE_MS);
 };
 
-/** Turn the music on. Call from a click or key press: browsers only let audio start after one. */
-export async function turnMusicOn() {
-  if (state.on) return;
-  section = sectionInView();
-  const song = nextSong();
-  set({ on: true, failed: false });
-  window.addEventListener("scroll", onScroll, { passive: true });
-  if (controller) return play(song);
+const onVisibility = () => {
+  const voice = state.current && voices.get(state.current.id);
+  if (!voice) return;
+  if (document.hidden) voice.element.pause();
+  else void voice.element.play().catch(() => {});
+};
 
-  set({ current: song });
-  try {
-    const api = await loadSpotify();
-    if (!state.on || !host || controller) return;
-    const target = document.createElement("div");
-    host.appendChild(target);
-    api.createController(target, { uri: song.uri, width: "100%", height: 80 }, (created) => {
-      controller = created;
-      titleFrame(state.current ?? song);
-      created.addListener("ready", () => {
-        if (state.on) created.play();
-      });
-      created.addListener("playback_update", onPlayback);
-    });
-  } catch {
-    set({ failed: true });
-  }
+/** Turn the beats on. Call from a click or key press: browsers only start audio after one. */
+export function turnMusicOn() {
+  if (state.on || !getAudioContext()) return;
+  set({ on: true, current: null });
+  section = sectionInView();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  document.addEventListener("visibilitychange", onVisibility);
+  play(nextTrack());
 }
 
 export function turnMusicOff() {
   if (!state.on) return;
   window.clearTimeout(settleTimer);
   window.removeEventListener("scroll", onScroll);
-  controller?.pause();
+  document.removeEventListener("visibilitychange", onVisibility);
+  for (const voice of voices.values()) fadeOutAndPause(voice, 0.5);
   set({ on: false, playing: false });
 }
