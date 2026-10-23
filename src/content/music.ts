@@ -1,40 +1,94 @@
-// Background music: real hits through Spotify's official player, which holds the licences. While music is on, a
-// random song plays each time scrolling settles in a new section (Nigerian and international in turn), and another
-// starts when one ends. Clean versions only: every URI, title, artist and explicit flag was read from Spotify.
+// Background beats: chill instrumentals with a "slowed + reverb" treatment, hosted on the site so everyone hears
+// them in full. While music is on, a random beat plays each time scrolling settles in a new section (chill and Afro
+// in turn), and the next one starts when a beat ends. Every track is CC BY 4.0 from Free Music Archive; the player
+// credits the one that's playing. Files are built by design/music/build-music.mjs.
 
-export type Song = {
+export type Track = {
+  id: string;
   title: string;
   artist: string;
-  origin: "Nigerian" | "International";
-  uri: `spotify:track:${string}`;
+  style: string;
+  group: "Chill" | "Afro";
+  src: string;
+  /** the track's page on Free Music Archive */
+  source: string;
 };
 
-export const songs: Song[] = [
-  { title: "Calm Down (with Selena Gomez)", artist: "Rema, Selena Gomez", origin: "Nigerian", uri: "spotify:track:1s7oOCT8vauUh01PbJD6ps" },
-  { title: "Essence (feat. Tems)", artist: "Wizkid, Tems", origin: "Nigerian", uri: "spotify:track:5FG7Tl93LdH117jEKYl3Cm" },
-  { title: "Last Last", artist: "Burna Boy", origin: "Nigerian", uri: "spotify:track:57DarSfRMIVRCeDBGW0l5S" },
-  { title: "Rush", artist: "Ayra Starr", origin: "Nigerian", uri: "spotify:track:1xs8bOvm3IzEYmcLJVOc34" },
-  { title: "Free Mind", artist: "Tems", origin: "Nigerian", uri: "spotify:track:2mzM4Y0Rnx2BDZqRnhQ5Q6" },
-  { title: "On the Low", artist: "Burna Boy", origin: "Nigerian", uri: "spotify:track:1zIk8RJEKGvoH4FioFnGyJ" },
-  { title: "Joro", artist: "Wizkid", origin: "Nigerian", uri: "spotify:track:3Yt1ovsh3v3VEzRuhI1TL5" },
-  { title: "Jogodo", artist: "Wizkid, Asake", origin: "Nigerian", uri: "spotify:track:2njWzPDRRhsXOUhiA42e62" },
-  { title: "KANTE (feat. Fave)", artist: "Davido, FAVE", origin: "Nigerian", uri: "spotify:track:7vKXc90NT5WBm3UTT4iTVG" },
-  { title: "Gratitude", artist: "Asake", origin: "Nigerian", uri: "spotify:track:7hiRlw64LXcHpGAVJ6eUzv" },
-  { title: "Gbona", artist: "Burna Boy", origin: "Nigerian", uri: "spotify:track:1PlYxNrefqOBvk52umixt9" },
-  { title: "Commas", artist: "Ayra Starr", origin: "Nigerian", uri: "spotify:track:4GXW3Ne1jzdORKHvHjK31V" },
-  { title: "love nwantiti (ah ah ah) [feat. Joeboy & Kuami Eugene] [Remix]", artist: "CKay, Joeboy, Kuami Eugene", origin: "Nigerian", uri: "spotify:track:140dx97IbJbQhIMd7AaHeb" },
-  { title: "Vibration", artist: "Fireboy DML", origin: "Nigerian", uri: "spotify:track:7u0z6FcJDqkZwdpqAqUzmO" },
-  { title: "Sere", artist: "SPINALL, Fireboy DML", origin: "Nigerian", uri: "spotify:track:35056uy2b4M1qJ3Z1ed3sf" },
-  { title: "Me & U", artist: "Tems", origin: "Nigerian", uri: "spotify:track:31kxPC3ZB9AYwCLyHaqEVX" },
-  { title: "Blinding Lights", artist: "The Weeknd", origin: "International", uri: "spotify:track:0VjIjW4GlUZAMYd2vXMi3b" },
-  { title: "One Dance", artist: "Drake, Wizkid, Kyla", origin: "International", uri: "spotify:track:1zi7xx7UVEFkmKfv06H8x0" },
-  { title: "Levitating", artist: "Dua Lipa", origin: "International", uri: "spotify:track:39LLxExYz6ewLAcYrzQQyP" },
-  { title: "Don't Start Now", artist: "Dua Lipa", origin: "International", uri: "spotify:track:3PfIrDoz19wz7qK7tYeu62" },
-  { title: "Uptown Funk (feat. Bruno Mars)", artist: "Mark Ronson, Bruno Mars", origin: "International", uri: "spotify:track:32OlwWuMpZ6b0aN2RZOeMS" },
-  { title: "That's What I Like", artist: "Bruno Mars", origin: "International", uri: "spotify:track:0KKkJNfGyhkQ5aFogxQAPU" },
-  { title: "Die For You", artist: "The Weeknd", origin: "International", uri: "spotify:track:2LBqCSwhJGcFQeTHMVGwy3" },
-  { title: "Water", artist: "Tyla", origin: "International", uri: "spotify:track:5aIVCx5tnk0ntmdiinnYvw" },
-  { title: "Hold On, We're Going Home", artist: "Drake, Majid Jordan", origin: "International", uri: "spotify:track:6jdOi5U5LBzQrc4c1VT983" },
-  { title: "Die With A Smile", artist: "Lady Gaga, Bruno Mars", origin: "International", uri: "spotify:track:7so0lgd0zP2Sbgs2d7a1SZ" },
-  { title: "One Kiss (with Dua Lipa)", artist: "Calvin Harris, Dua Lipa", origin: "International", uri: "spotify:track:76dIZzTdrNO15mGBrU3MHi" },
+export const musicLicense = { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" };
+
+const fma = (path: string) => `https://freemusicarchive.org/music/${path}/`;
+
+export const tracks: Track[] = [
+  {
+    id: "coffee-jelly",
+    title: "Coffee Jelly",
+    artist: "Purrple Cat",
+    style: "Lo-fi",
+    group: "Chill",
+    src: "/music/coffee-jelly.mp3",
+    source: fma("purrple-cat/a-good-book/coffee-jelly"),
+  },
+  {
+    id: "bookworm",
+    title: "Bookworm",
+    artist: "Purrple Cat",
+    style: "Lo-fi",
+    group: "Chill",
+    src: "/music/bookworm.mp3",
+    source: fma("purrple-cat/a-good-book/bookworm"),
+  },
+  {
+    id: "lo-fi-relax-1",
+    title: "lo-fi relax",
+    artist: "Melatronic",
+    style: "Lo-fi hip hop",
+    group: "Chill",
+    src: "/music/lo-fi-relax-1.mp3",
+    source: fma("melatronic-1/stylish-hip-hop/lo-fi-relax-1"),
+  },
+  {
+    id: "busted-tape",
+    title: "Busted Tape",
+    artist: "1000 Handz",
+    style: "Chill study",
+    group: "Chill",
+    src: "/music/busted-tape.mp3",
+    source: fma("1000-handz/cc-by-free-to-use-chillstudylounge-instrumentals/busted-tape"),
+  },
+  {
+    id: "feel-it-heal-it",
+    title: "Feel It Heal It",
+    artist: "Ketsa",
+    style: "Soul",
+    group: "Chill",
+    src: "/music/feel-it-heal-it.mp3",
+    source: fma("Ketsa/vintage-modernity/feel-it-heal-it"),
+  },
+  {
+    id: "afrobeast",
+    title: "Afrobeast",
+    artist: "Joseph Sacco",
+    style: "Afrobeats",
+    group: "Afro",
+    src: "/music/afrobeast.mp3",
+    source: fma("joseph-sacco/afrobeast-instrumentals/afrobeast"),
+  },
+  {
+    id: "sun-hat",
+    title: "Sun Hat",
+    artist: "Joseph Sacco",
+    style: "Afrobeats",
+    group: "Afro",
+    src: "/music/sun-hat.mp3",
+    source: fma("joseph-sacco/afrobeast-instrumentals/sun-hat"),
+  },
+  {
+    id: "amapiano-beats-with-log-drum-groove",
+    title: "Amapiano Beats With Log Drum Groove",
+    artist: "Alex Morgan",
+    style: "Amapiano",
+    group: "Afro",
+    src: "/music/amapiano-beats-with-log-drum-groove.mp3",
+    source: fma("alex-morgan/emotional-piano-vol-1/amapiano-beats-with-log-drum-groove"),
+  },
 ];
