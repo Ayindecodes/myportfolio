@@ -1,28 +1,83 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   Design tokens
-   ------------------------------------------------------------------------- */
+/* ===========================================================================
+   Design tokens — docs/redesign/BRIEF.md is the source of truth.
+   Contrast ratios are measured against --bg.
+   ========================================================================= */
 
 :root {
-  --bg: #101014;
-  --surface: #17171e;
-  --surface-2: #1f1f28;
-  --ink: #f5f5f7;
-  --dim: #a1a1aa;
-  --mute: #3f3f48;
-  --hairline: rgb(255 255 255 / 0.09);
-  --hairline-strong: rgb(255 255 255 / 0.16);
-  --accent: #8055f5;
-  --accent-hover: #946ff8;
-  --accent-ink: #a993fa;
-  --live: #3ecf8e;
+  /* Palette */
+  --bg: #f1ede4;
+  --surface: #fffdf9;
+  --surface-2: #f3eee4;
+  --ink: #141414; /* 15.8:1 */
+  --body: #46413a; /* 8.7:1, paragraphs */
+  --dim: #6b6457; /* 5.0:1, small meta and labels */
+  --faint: #a39b8c; /* 2.4:1, decoration only, never text */
+  --hairline: rgb(42 36 48 / 0.12);
+  --hairline-strong: rgb(42 36 48 / 0.22);
+  --accent: #8055f5; /* fills and doodles; white on it 4.6:1 */
+  --accent-hover: #7146f0;
+  --accent-ink: #6a3fe0; /* small accent text, 5.3:1 */
+  --accent-soft: #c6b6ff;
+  --live: #1d7a4f; /* 4.6:1 */
+  --on-dark: #f7f3ec; /* text on dark vinyl, 15.9:1 */
 
-  --gutter: clamp(20px, 4vw, 56px);
-  --header-offset: 88px;
-  --radius-card: 1.6rem;
-  --shadow-card: 0 30px 70px -42px rgb(0 0 0 / 0.9);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Vinyl surfaces: every surface is lit from the upper left */
+  --vinyl-cream: radial-gradient(120% 130% at 38% 14%, #fffdf9 0%, #f3eee4 60%, #e4dac8 100%);
+  --vinyl-dark: linear-gradient(165deg, #34303a 0%, #1b1820 47%, #0f0d12 100%);
+  --vinyl-accent: radial-gradient(120% 130% at 38% 14%, #a383ff 0%, #8055f5 55%, #6a3fe0 100%);
+
+  /* Shadows: drop + top sheen + underside shade, tinted, never pure black */
+  --shadow-vinyl:
+    0 18px 28px -16px rgb(42 36 48 / 0.45), inset 0 2px 5px rgb(255 255 255 / 0.92),
+    inset 0 -4px 9px rgb(154 143 124 / 0.3);
+  --shadow-vinyl-lg:
+    0 40px 64px -28px rgb(42 36 48 / 0.5), inset 0 16px 30px rgb(255 255 255 / 0.85),
+    inset 0 -20px 34px rgb(154 143 124 / 0.3);
+  --shadow-vinyl-dark:
+    0 12px 20px -10px rgb(15 13 18 / 0.7), 0 2px 4px rgb(15 13 18 / 0.35), inset 0 2px 3px rgb(255 255 255 / 0.22),
+    inset 0 -5px 9px rgb(0 0 0 / 0.45);
+  --shadow-vinyl-accent:
+    0 14px 24px -12px rgb(106 63 224 / 0.6), inset 0 2px 4px rgb(255 255 255 / 0.35),
+    inset 0 -5px 10px rgb(60 30 150 / 0.35);
+
+  /* Layout */
+  --page-max: 1180px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --section-pad: clamp(80px, 12vh, 136px); /* tracks screen height so short laptops get tighter sections */
+  --header-offset: 96px;
+  --radius-card: 28px;
+  --radius-chip: 13px;
+
+  /* Font stacks (next/font sets the --font-geist-*, --font-fredoka and --font-kalam variables on <html>) */
+  --font-sans-stack: var(--font-geist-sans), system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono-stack: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display-stack: var(--font-fredoka), var(--font-geist-sans), system-ui, sans-serif;
+  --font-hand-stack: var(--font-kalam), "Comic Sans MS", cursive;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Type scale (fluid; phones get their own clamps below) */
+  --fs-h1: clamp(2.125rem, 5.2vw, 4.25rem);
+  --fs-h2: clamp(1.625rem, 3.6vw, 3rem);
+  --fs-h3: clamp(1.75rem, 3.4vw, 2.875rem);
+  --fs-label: clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-lead: clamp(1.2rem, 1.7vw, 1.5rem);
+  --fs-body: clamp(0.95rem, 1.1vw, 1.0625rem);
+  --fs-small: 0.875rem;
+  --fs-meta: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --fs-h1: clamp(1.875rem, 8.6vw, 2.5rem);
+    --fs-h2: clamp(1.55rem, 7.4vw, 2.125rem);
+    --fs-h3: clamp(1.6rem, 7.6vw, 2.125rem);
+    --fs-lead: 1.125rem;
+  }
 }
 
 @theme inline {
@@ -30,442 +85,28 @@
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-ink: var(--ink);
+  --color-body: var(--body);
   --color-dim: var(--dim);
-  --color-mute: var(--mute);
+  --color-faint: var(--faint);
   --color-hairline: var(--hairline);
   --color-hairline-strong: var(--hairline-strong);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
   --color-live: var(--live);
-
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: var(--font-bricolage), var(--font-geist-sans), system-ui, sans-serif;
-}
-
-/* ---------------------------------------------------------------------------
-   Base
-   ------------------------------------------------------------------------- */
-
-html {
-  background: var(--bg);
-  color-scheme: dark;
-  -webkit-text-size-adjust: 100%;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: clip;
-}
-
-::selection {
-  background: color-mix(in srgb, var(--accent) 55%, transparent);
-  color: var(--ink);
-}
-
-:focus-visible {
-  outline: 2px solid var(--accent-ink);
-  outline-offset: 3px;
-}
-
-main [id] {
-  scroll-margin-top: var(--header-offset);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   Shared utilities
-   ------------------------------------------------------------------------- */
-
-@utility page {
-  width: 100%;
-  max-width: 1440px;
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.24em;
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-
-@utility meta {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-@utility link-underline {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.3em;
-  text-decoration-color: var(--hairline-strong);
-  transition: text-decoration-color 0.2s ease, color 0.2s ease;
-
-  &:hover {
-    text-decoration-color: currentColor;
-  }
-}
-
-/* Pill buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 2.875rem;
-  padding: 0 1.25rem;
-  border-radius: 999px;
-  font-size: 0.906rem;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
-
-  &:active {
-    transform: translateY(1px);
-  }
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-
-  &:hover {
-    background: var(--accent-hover);
-  }
-}
-
-.btn-secondary {
-  border: 1px solid var(--hairline-strong);
-  color: var(--ink);
-
-  &:hover {
-    background: var(--surface-2);
-    border-color: rgb(255 255 255 / 0.24);
-  }
-}
-
-/* Arrow glyphs that nudge on hover of their parent link */
-.nudge-r,
-.nudge-d,
-.nudge-u,
-.nudge-ur {
-  display: inline-block;
-  transition: transform 0.25s var(--ease-out);
-}
-
-:is(a, button):hover > .nudge-r {
-  transform: translateX(3px);
-}
-
-:is(a, button):hover > .nudge-d {
-  transform: translateY(3px);
-}
-
-:is(a, button):hover > .nudge-u {
-  transform: translateY(-3px);
-}
-
-:is(a, button):hover > .nudge-ur {
-  transform: translate(2px, -2px);
-}
-
-/* ---------------------------------------------------------------------------
-   Hero wordmark
-   ------------------------------------------------------------------------- */
-
-.wordmark {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 26vw;
-  line-height: 0.88;
-  letter-spacing: -0.055em;
-  color: var(--ink);
-}
-
-.wordmark-word {
-  display: block;
-  white-space: nowrap;
-}
-
-.wordmark-letter {
-  display: inline-block;
-  animation: letter-rise 0.9s var(--ease-out) both;
-  animation-delay: calc(0.25s + var(--i) * 0.035s);
-}
-
-@media (min-width: 768px) {
-  .wordmark {
-    font-size: 16.2vw;
-    line-height: 0.8;
-  }
-
-  .wordmark-word {
-    display: inline;
-  }
-}
-
-@keyframes letter-rise {
-  from {
-    opacity: 0;
-    transform: translateY(0.35em);
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   Hero ID badge
-   ------------------------------------------------------------------------- */
-
-.badge-rig {
-  --strap: #24242d;
-  position: relative;
-  width: 15.5em;
-  font-size: 14px;
-  transform-origin: 50% -6em;
-  animation: badge-settle 2.8s var(--ease-out) 0.2s both;
-}
-
-.badge-straps {
-  display: none;
-}
-
-.badge-card {
-  position: relative;
-  border-radius: 1.1em;
-  border: 1px solid var(--hairline-strong);
-  background: #1c1c24;
-  padding: 0.75em;
-  box-shadow:
-    0 40px 80px -30px rgb(0 0 0 / 0.85),
-    inset 0 1px 0 rgb(255 255 255 / 0.06);
-}
-
-.badge-slot {
-  width: 3.4em;
-  height: 0.55em;
-  margin: 0.1em auto 0.7em;
-  border-radius: 999px;
-  background: var(--bg);
-  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.6);
-}
-
-@media (min-width: 1024px) {
-  .badge-rig {
-    position: absolute;
-    top: 17.5em;
-    left: 63%;
-    font-size: 16px;
-    transform-origin: 50% -17.5em;
-  }
-
-  .badge-straps {
-    display: block;
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    width: 0;
-    height: 18em;
-  }
-
-  .badge-strap {
-    position: absolute;
-    bottom: -0.4em;
-    width: 1.6em;
-    height: 19em;
-    background: var(--strap);
-    border-inline: 1px solid rgb(255 255 255 / 0.05);
-    overflow: hidden;
-    transform-origin: 50% 100%;
-  }
-
-  .badge-strap:first-child {
-    right: -0.2em;
-    transform: rotate(7deg);
-  }
-
-  .badge-strap:last-child {
-    left: -0.2em;
-    transform: rotate(-7deg);
-  }
-
-  .badge-strap span {
-    display: block;
-    writing-mode: vertical-rl;
-    white-space: nowrap;
-    margin: 0.5em auto 0;
-    font-family: var(--font-mono);
-    font-size: 0.45em;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.62);
-    width: 100%;
-    line-height: 3.4em;
-    text-align: center;
-  }
-
-  .badge-clip {
-    position: absolute;
-    bottom: calc(100% - 0.7em);
-    left: 50%;
-    width: 2.2em;
-    height: 1.6em;
-    translate: -50% 0;
-    border-radius: 0.35em 0.35em 0.5em 0.5em;
-    background: linear-gradient(#5b5b66, #34343c);
-    box-shadow: 0 2px 4px rgb(0 0 0 / 0.5);
-  }
-}
-
-@keyframes badge-settle {
-  0% {
-    opacity: 0;
-    rotate: 7deg;
-  }
-  18% {
-    opacity: 1;
-  }
-  35% {
-    rotate: -3.5deg;
-  }
-  58% {
-    rotate: 1.6deg;
-  }
-  80% {
-    rotate: -0.6deg;
-  }
-  100% {
-    rotate: 0deg;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   Scroll-linked text reveal (About)
-   ------------------------------------------------------------------------- */
-
-.reveal {
-  --progress: 1;
-}
-
-.reveal > span {
-  /* The 0.38 floor keeps dimmed words above 3:1 contrast for large text. */
-  opacity: clamp(0.38, calc(var(--progress) * (var(--count) + 4) - var(--i)), 1);
-  transition: opacity 0.2s linear;
-}
-
-/* ---------------------------------------------------------------------------
-   Project cards
-   ------------------------------------------------------------------------- */
-
-@media (min-width: 768px) and (min-height: 720px) {
-  .stack-card {
-    position: sticky;
-    top: var(--header-offset);
-  }
-}
-
-.project-visual {
-  background:
-    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--tint) 42%, transparent), transparent 62%),
-    #0c0c10;
-}
-
-.project-shot {
-  transition: transform 0.7s var(--ease-out);
-}
-
-.project-visual:hover .project-shot {
-  transform: translate(-0.6%, -0.8%) scale(1.012);
-}
-
-.view-bubble {
-  visibility: hidden;
-  opacity: 0;
-  scale: 0.6;
-  transition: opacity 0.25s ease, scale 0.35s var(--ease-out), visibility 0s linear 0.35s;
-}
-
-.project-visual:hover .view-bubble {
-  visibility: visible;
-  opacity: 1;
-  scale: 1;
-  transition-delay: 0s;
-}
-
-/* ---------------------------------------------------------------------------
-   Contact
-   ------------------------------------------------------------------------- */
-
-.outline-wordmark {
-  font-weight: 600;
-  font-size: 14.3vw;
-  line-height: 0.82;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.2);
-}
-
-@media (min-width: 1440px) {
-  .outline-wordmark {
-    font-size: 11.65rem;
-  }
-}
-
-.field {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid var(--hairline-strong);
-  background: transparent;
-  padding: 0.7rem 0;
-  font-size: 1rem;
-  color: var(--ink);
-  border-radius: 0;
-  transition: border-color 0.2s ease;
-
-  &::placeholder {
-    color: #6b6b75;
-  }
-
-  &:hover {
-    border-color: rgb(255 255 255 / 0.28);
-  }
-
-  &:focus-visible {
-    outline: none;
-    border-color: var(--accent-ink);
-    box-shadow: 0 1px 0 var(--accent-ink);
-  }
-
-  &[aria-invalid="true"] {
-    border-color: #f87171;
-  }
+  --color-on-dark: var(--on-dark);
+
+  --font-sans: var(--font-sans-stack);
+  --font-mono: var(--font-mono-stack);
+  --font-display: var(--font-display-stack);
+  --font-hand: var(--font-hand-stack);
+
+  --shadow-vinyl: var(--shadow-vinyl);
+  --shadow-vinyl-lg: var(--shadow-vinyl-lg);
+  --shadow-vinyl-dark: var(--shadow-vinyl-dark);
+  --shadow-vinyl-accent: var(--shadow-vinyl-accent);
+
+  --ease-out-soft: var(--ease-out-soft);
+  --ease-spring: var(--ease-spring-soft);
 }
