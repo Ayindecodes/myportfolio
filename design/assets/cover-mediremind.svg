@@ -1,0 +1,21 @@
+<!-- Project cover (illustration, not a screenshot): MediRemind's medication reminders. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <clipPath id="capsuleLeft"><rect x="0" y="0" width="400" height="600"/></clipPath>
+  </defs>
+  <ellipse cx="400" cy="540" rx="290" ry="20" fill="#2a2430" opacity="0.24" filter="url(#contactShadow)"/>
+  <!-- capsule -->
+  <g transform="translate(-70 46) rotate(-28 360 340)">
+    <rect x="150" y="270" width="420" height="150" rx="75" fill="#f6efe3" filter="url(#vinyl)"/>
+    <g clip-path="url(#capsuleLeft)"><rect x="150" y="270" width="420" height="150" rx="75" fill="#8055f5" filter="url(#vinyl)"/></g>
+    <path d="M400 276 L400 414" stroke="#2a2430" stroke-opacity="0.12" stroke-width="4"/>
+  </g>
+  <!-- reminder bell -->
+  <g transform="translate(612 196) rotate(14) scale(0.92)">
+    <circle cx="0" cy="104" r="22" fill="#b08a35" filter="url(#vinylSmall)"/>
+    <path d="M-92 82 C-78 66 -72 40 -72 2 C-72 -46 -40 -78 0 -78 C40 -78 72 -46 72 2 C72 40 78 66 92 82 Z" fill="#e2bd5e" filter="url(#vinyl)"/>
+    <rect x="-100" y="70" width="200" height="30" rx="15" fill="#d9ad46" filter="url(#vinylSmall)"/>
+    <circle cx="0" cy="-86" r="14" fill="#d9ad46" filter="url(#vinylSmall)"/>
+    <circle cx="66" cy="-62" r="28" fill="#f0532d" filter="url(#vinylSmall)"/>
+  </g>
+</svg>
