@@ -1313,4 +1313,298 @@ main [id] {
       margin-top: clamp(40px, 6vh, 80px);
     }
   }
+
+  /* ===========================================================================
+     Work (Phase 7) — src/components/work
+     ========================================================================= */
+
+  .work-tabs {
+    margin-top: clamp(28px, 4.5vh, 44px);
+  }
+
+  /* Two-way vinyl toggle: equal slots, so the thumb is exactly one slot wide */
+  .work-toggle {
+    position: relative;
+    display: inline-grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    padding: 5px;
+    border-radius: 999px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+  }
+
+  .work-thumb {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    width: calc(50% - 5px);
+    border-radius: 999px;
+    background: var(--vinyl-dark);
+    box-shadow: var(--shadow-vinyl-dark);
+    transform-origin: 0 50%;
+    will-change: transform;
+  }
+
+  .work-tab {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 0 clamp(18px, 2.4vw, 28px);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--ink);
+    transition: color 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    &[aria-selected="true"] {
+      color: var(--on-dark);
+    }
+
+    &:focus-visible {
+      outline-offset: 2px;
+    }
+  }
+
+  .work-count {
+    display: inline-grid;
+    min-width: 22px;
+    height: 22px;
+    place-items: center;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: rgb(42 36 48 / 0.08);
+    font-family: var(--font-mono-stack);
+    font-size: 0.72rem;
+    color: var(--dim);
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .work-tab[aria-selected="true"] .work-count {
+    background: rgb(255 255 255 / 0.16);
+    color: var(--on-dark);
+  }
+
+  /* Only the chosen list shows. Without JavaScript the toggle can't work, so both lists show instead. */
+  html.js .work-panel:not([data-active]) {
+    display: none;
+  }
+
+  html:not(.js) .work-toggle {
+    display: none;
+  }
+
+  .work-panel-title {
+    display: none;
+  }
+
+  html:not(.js) .work-panel-title {
+    display: block;
+    margin-top: clamp(40px, 6vh, 64px);
+  }
+
+  .work-panel {
+    transition: opacity 0.13s ease;
+  }
+
+  .work-panel[data-leaving] {
+    opacity: 0;
+  }
+
+  html.js:not([data-calm]) .work-panel[data-active]:not([data-leaving], [data-quiet]) {
+    animation: panel-in 0.26s var(--ease-out-soft);
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      translate: 0 10px;
+    }
+  }
+
+  /* Project rows: image and text side by side, alternating sides */
+  .project-list {
+    display: grid;
+    gap: clamp(64px, 11vh, 120px);
+    margin-top: clamp(44px, 7vh, 76px);
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 1.08fr 1fr;
+    align-items: center;
+    gap: clamp(30px, 4.5vw, 72px);
+  }
+
+  .project-row[data-flip] {
+    grid-template-columns: 1fr 1.08fr;
+  }
+
+  .project-row[data-flip] .project-media {
+    order: 2;
+  }
+
+  .project-media {
+    display: block;
+    border-radius: var(--radius-card);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The pill stands in for the cursor while it's over an image */
+  .project-media[data-pill] {
+    cursor: none;
+  }
+
+  .project-frame {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 11;
+    padding: clamp(14px, 4%, 30px);
+    border-radius: var(--radius-card);
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl-lg);
+    transition:
+      translate 0.6s var(--ease-spring-soft),
+      box-shadow 0.4s ease;
+  }
+
+  /* Stitched seam, as on the hero cards */
+  .project-frame::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border: 1.5px dashed rgb(42 36 48 / 0.14);
+    border-radius: 22px;
+    pointer-events: none;
+  }
+
+  .project-shot {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .project-shot img {
+    transition: scale 0.7s var(--ease-out-soft);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-media:hover .project-frame {
+      translate: 0 -6px;
+      box-shadow:
+        0 52px 70px -30px rgb(42 36 48 / 0.55),
+        inset 0 16px 30px rgb(255 255 255 / 0.85),
+        inset 0 -20px 34px rgb(154 143 124 / 0.3);
+    }
+
+    .project-media:hover .project-shot img {
+      scale: 1.035;
+    }
+  }
+
+  /* Status badge: Live, Building or Open source */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 11px 5px 9px;
+    border-radius: 999px;
+    background: var(--vinyl-cream);
+    box-shadow:
+      0 8px 14px -10px rgb(42 36 48 / 0.45),
+      inset 0 2px 3px rgb(255 255 255 / 0.9),
+      inset 0 -3px 6px rgb(154 143 124 / 0.28);
+    font-family: var(--font-mono-stack);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .status-badge[data-status="live"] {
+    color: var(--live);
+  }
+
+  .status-badge[data-status="building"] {
+    color: var(--accent-ink);
+  }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent);
+  }
+
+  /* Secondary project links (the main one is a dark button) */
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: var(--hairline-strong);
+    text-underline-offset: 0.3em;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--accent-ink);
+        text-decoration-color: currentColor;
+      }
+    }
+  }
+
+  /* "Open ↗": follows the cursor over project images (visit-pill.ts) */
+  .visit-pill {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 45;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: var(--vinyl-accent);
+    box-shadow: var(--shadow-vinyl-accent);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #fff;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+  }
+
+  @media (max-width: 920px) {
+    .work-toggle {
+      display: grid;
+      width: 100%;
+    }
+
+    .project-row,
+    .project-row[data-flip] {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .project-row[data-flip] .project-media {
+      order: 0;
+    }
+  }
 }
