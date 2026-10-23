@@ -1,67 +1,20 @@
-// Background music: one track per section, Afro and global in turn. Every track is CC BY 4.0 from Free Music
-// Archive; the player credits the one that's playing. Files are built by design/music/build-music.mjs (shortened
-// to at most 2½ minutes, loudness-matched and re-encoded).
+// Background music: real hits through Spotify's official player, which holds the licences. One song per section,
+// Nigerian and international in turn, clean versions only. Every URI was read from Spotify's own pages, with the
+// title, artists and explicit flag checked.
 
-export type Track = {
-  id: string;
-  /** id of the section this track plays under */
+export type Song = {
+  /** id of the section this song plays under */
   section: string;
   title: string;
   artist: string;
-  style: string;
-  src: string;
-  /** the track's page on Free Music Archive */
-  source: string;
+  origin: "Nigerian" | "International";
+  uri: `spotify:track:${string}`;
 };
 
-export const musicLicense = { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" };
-
-const fma = (path: string) => `https://freemusicarchive.org/music/${path}/`;
-
-export const tracks: Track[] = [
-  {
-    id: "afrobeast",
-    section: "top",
-    title: "Afrobeast",
-    artist: "Joseph Sacco",
-    style: "Afrobeats",
-    src: "/music/afrobeast.mp3",
-    source: fma("joseph-sacco/afrobeast-instrumentals/afrobeast"),
-  },
-  {
-    id: "hot-amapiano-beats",
-    section: "work",
-    title: "Hot Amapiano Beats",
-    artist: "Alex Morgan",
-    style: "Amapiano",
-    src: "/music/hot-amapiano-beats.mp3",
-    source: fma("alex-morgan/pop-afro-party-instrumentals/hot-amapiano-beats"),
-  },
-  {
-    id: "coffee-jelly",
-    section: "about",
-    title: "Coffee Jelly",
-    artist: "Purrple Cat",
-    style: "Lo-fi",
-    src: "/music/coffee-jelly.mp3",
-    source: fma("purrple-cat/a-good-book/coffee-jelly"),
-  },
-  {
-    id: "afro-house",
-    section: "journey",
-    title: "Afro House",
-    artist: "Alex Morgan",
-    style: "Afro house",
-    src: "/music/afro-house.mp3",
-    source: fma("alex-morgan/pop-afro-party-instrumentals/afro-house"),
-  },
-  {
-    id: "funky-vibe",
-    section: "contact",
-    title: "Funky vibe",
-    artist: "Heavenless",
-    style: "Disco funk",
-    src: "/music/funky-vibe.mp3",
-    source: fma("heavenless/disco-vibe/funky-vibe"),
-  },
+export const songs: Song[] = [
+  { section: "top", title: "Calm Down", artist: "Rema & Selena Gomez", origin: "Nigerian", uri: "spotify:track:1s7oOCT8vauUh01PbJD6ps" },
+  { section: "work", title: "Blinding Lights", artist: "The Weeknd", origin: "International", uri: "spotify:track:0VjIjW4GlUZAMYd2vXMi3b" },
+  { section: "about", title: "Essence", artist: "Wizkid feat. Tems", origin: "Nigerian", uri: "spotify:track:5FG7Tl93LdH117jEKYl3Cm" },
+  { section: "journey", title: "One Dance", artist: "Drake feat. Wizkid & Kyla", origin: "International", uri: "spotify:track:1zi7xx7UVEFkmKfv06H8x0" },
+  { section: "contact", title: "Last Last", artist: "Burna Boy", origin: "Nigerian", uri: "spotify:track:57DarSfRMIVRCeDBGW0l5S" },
 ];
