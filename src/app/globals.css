@@ -163,3 +163,134 @@ main [id] {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===========================================================================
+   Layout and type utilities
+   ========================================================================= */
+
+@utility page {
+  width: min(var(--page-max), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+@utility section-pad {
+  padding-block: var(--section-pad);
+}
+
+/* Section headings: "Built, shipped, still tinkering." */
+@utility type-h1 {
+  font-family: var(--font-hand-stack);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance; /* no lone last word when a heading wraps on phones */
+}
+
+/* About statement */
+@utility type-h2 {
+  font-family: var(--font-hand-stack);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.16;
+  color: var(--ink);
+}
+
+/* Project titles */
+@utility type-h3 {
+  font-family: var(--font-hand-stack);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* Section labels next to the number seal */
+@utility type-label {
+  font-family: var(--font-hand-stack);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Hero line and captions */
+@utility type-lead {
+  font-family: var(--font-hand-stack);
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+@utility type-body {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--body);
+}
+
+/* Dates, chips, eyebrows: Geist Mono, tracked uppercase only at small sizes */
+@utility type-meta {
+  font-family: var(--font-mono-stack);
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* Older names kept for components that are rebuilt in later phases */
+@utility eyebrow {
+  font-family: var(--font-mono-stack);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+@utility meta {
+  font-family: var(--font-mono-stack);
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@utility link-underline {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: var(--hairline-strong);
+  transition:
+    text-decoration-color 0.2s ease,
+    color 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+}
+
+/* Vinyl surfaces */
+@utility vinyl-cream {
+  background: var(--vinyl-cream);
+  box-shadow: var(--shadow-vinyl);
+}
+
+@utility vinyl-dark {
+  background: var(--vinyl-dark);
+  box-shadow: var(--shadow-vinyl-dark);
+  color: var(--on-dark);
+}
+
+@utility vinyl-accent {
+  background: var(--vinyl-accent);
+  box-shadow: var(--shadow-vinyl-accent);
+  color: #fff;
+}
