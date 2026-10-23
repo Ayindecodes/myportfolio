@@ -1,156 +1,131 @@
-import type { StaticImageData } from "next/image";
-import landkryptShot from "@/assets/projects/landkrypt.webp";
-import quicksurfShot from "@/assets/projects/quicksurf.webp";
+// Projects shown in Work (01) and the hero's card fan. Copy is from docs/redesign/CONTENT.md (§14–15);
+// every claim traces to the repo or live site. The first link is the main one: the project image opens it.
 
-export type ProjectLink = { label: string; href: string };
+import type { StaticImageData } from "next/image";
+import coverMediRemind from "@/assets/redesign/cover-mediremind.webp";
+import coverPayIntent from "@/assets/redesign/cover-payintent.webp";
+import coverWebXRay from "@/assets/redesign/cover-webxray.webp";
+import shotKeyra from "@/assets/redesign/shot-keyra.webp";
+import shotLandKrypt from "@/assets/redesign/shot-landkrypt.webp";
+import shotNobleKin from "@/assets/redesign/shot-noblekin.webp";
+import shotQuicksurf from "@/assets/redesign/shot-quicksurf.webp";
 
 export type ProjectStatus = "live" | "building" | "open-source";
 
-export type FeaturedProject = {
+export type ProjectLink = { label: string; href: string };
+
+export type WorkTab = "products" | "side";
+
+export type Project = {
   slug: string;
   name: string;
-  /** Short label used in the hero list, e.g. "airtime & data payments". */
-  tagline: string;
-  kind: string;
-  /** Brand colour used to tint the project's preview panel. */
-  tint: string;
-  year?: string;
+  tab: WorkTab;
   status: ProjectStatus;
-  title: string;
+  years?: string;
   description: string;
   stack: string[];
   links: ProjectLink[];
-  /** Real screenshot of the product. Without one, `preview` is rendered as a typographic panel. */
-  image?: { src: StaticImageData; alt: string };
-  preview?: { title: string; items: { label: string; text?: string }[] };
+  image: StaticImageData;
 };
 
-export type MinorProject = {
-  name: string;
-  description: string;
-  stack: string[];
-  year?: string;
-  links: ProjectLink[];
+export const workTabs: { id: WorkTab; label: string }[] = [
+  { id: "products", label: "Products" },
+  { id: "side", label: "Side builds" },
+];
+
+export const statusLabels: Record<ProjectStatus, string> = {
+  live: "Live",
+  building: "Building",
+  "open-source": "Open source",
 };
 
 const github = (repo: string) => `https://github.com/Ayindecodes/${repo}`;
 
-export const featuredProjects: FeaturedProject[] = [
+export const projects: Project[] = [
   {
     slug: "quicksurf",
-    tint: "#0f6a80",
     name: "Quicksurf",
-    tagline: "airtime & data payments",
-    kind: "Fintech web app",
-    year: "2025–26",
+    tab: "products",
     status: "live",
-    title: "Airtime and data top-ups, backed by a real payments API",
+    years: "2025–26",
     description:
-      "A Django REST backend that buys airtime and data through VTpass, with Paystack-funded wallets and webhooks, JWT auth, idempotent purchases and reward points. The Next.js client covers sign-up, the dashboard and checkout.",
+      "Top up airtime and data in a few taps. I built the Django REST backend, with VTpass for delivery, Paystack-funded wallets and webhooks, JWT auth, idempotent purchases and reward points, plus the Next.js app on top.",
     stack: ["Django REST", "PostgreSQL", "Redis", "Paystack", "Next.js", "TypeScript"],
     links: [
-      { label: "Live site", href: "https://quicksurf-frontend.vercel.app" },
+      { label: "Open project", href: "https://quicksurf-frontend.vercel.app" },
       { label: "Backend code", href: github("QuickSurf") },
       { label: "Frontend code", href: github("quicksurf-frontend") },
     ],
-    image: {
-      src: quicksurfShot,
-      alt: "Quicksurf landing page with a form to buy airtime or data by network, amount and phone number",
-    },
+    image: shotQuicksurf,
   },
   {
     slug: "web-x-ray",
-    tint: "#8055f5",
     name: "Web X-Ray",
-    tagline: "automated website QA",
-    kind: "Developer tool",
-    year: "2026",
+    tab: "products",
     status: "building",
-    title: "Website testing that proves a bug before reporting it",
+    years: "2026",
     description:
-      "Point it at a site you’re authorised to test and it explores in an isolated browser, runs user journeys on desktop and mobile, records evidence and diagnoses failures. It then writes a Playwright reproduction test and runs it before calling anything reproduced.",
+      "A testing robot that proves a bug before reporting it. It explores a site you’re allowed to test, runs real user journeys on desktop and mobile, then writes a Playwright test and runs it to confirm the failure.",
     stack: ["FastAPI", "PostgreSQL", "Redis", "Playwright", "Next.js", "Tailwind CSS"],
-    links: [{ label: "Source code", href: github("webpush") }],
-    preview: {
-      title: "How it works",
-      items: [
-        { label: "Explore" },
-        { label: "Run journeys" },
-        { label: "Record evidence" },
-        { label: "Diagnose" },
-        { label: "Generate test" },
-        { label: "Execute it" },
-      ],
-    },
+    links: [{ label: "View code", href: github("webpush") }],
+    image: coverWebXRay,
   },
   {
     slug: "payintent",
-    tint: "#2f5bd3",
     name: "PayIntent",
-    tagline: "rule-based mobile payments",
-    kind: "Mobile payments app",
-    year: "2026",
+    tab: "products",
     status: "open-source",
-    title: "Payments that only release when the conditions are met",
+    years: "2026",
     description:
-      "An Expo app for payments with rules: hold funds until delivery is confirmed, limit spending to set categories, or release only after the work is approved. It also handles wallet funding, bank and in-app transfers, and airtime, data, electricity and TV bills.",
-    stack: ["React Native", "Expo", "TypeScript", "Zustand", "React Navigation"],
-    links: [{ label: "Source code", href: github("fepayintent") }],
-    preview: {
-      title: "Payment types",
-      items: [
-        { label: "Conditional payment", text: "Funds stay secured until you confirm delivery." },
-        { label: "Restricted payment", text: "Set spending categories and limits before release." },
-        { label: "Completion payment", text: "Release only after work is marked done and approved." },
-      ],
-    },
+      "Payments with rules attached: hold money until delivery is confirmed, cap spending by category, or release it once the work is approved. An Expo app that also handles wallets, transfers and bill payments.",
+    stack: ["React Native", "Expo", "TypeScript", "Zustand"],
+    links: [{ label: "View code", href: github("fepayintent") }],
+    image: coverPayIntent,
   },
   {
     slug: "landkrypt",
-    tint: "#c2410c",
     name: "LandKrypt",
-    tagline: "fractional real estate on-chain",
-    kind: "Web3 platform",
+    tab: "products",
     status: "live",
-    title: "Fractional ownership of virtual real estate",
     description:
       "A marketplace that splits virtual properties into fractional NFTs. Holders stake, vote on how a property develops and earn rewards, with daily XP streaks that keep them coming back.",
     stack: ["React", "Web3", "Solidity"],
-    links: [{ label: "Live site", href: "https://landkrypt-fe.vercel.app" }],
-    image: {
-      src: landkryptShot,
-      alt: "LandKrypt landing page headed “Beyond Play: Own The World” with an Explore Marketplace button",
-    },
+    links: [{ label: "Open project", href: "https://landkrypt-fe.vercel.app" }],
+    image: shotLandKrypt,
   },
-];
-
-export const moreProjects: MinorProject[] = [
   {
+    slug: "noblekin-bio",
     name: "NobleKin Bio",
-    description:
-      "Website for an African bioinformatics institute, with training in genomics, transcriptomics and biostatistics.",
+    tab: "side",
+    status: "live",
+    description: "Website for an African bioinformatics institute, with courses in genomics, transcriptomics and biostatistics.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    links: [{ label: "Live site", href: "https://noblekinbio.com" }],
+    links: [{ label: "Open project", href: "https://noblekinbio.com" }],
+    image: shotNobleKin,
   },
   {
+    slug: "mediremind",
     name: "MediRemind",
+    tab: "side",
+    status: "open-source",
+    years: "2025–26",
     description: "Medication reminders, mood logging and therapy sessions, with email-code sign-in.",
     stack: ["Next.js", "TypeScript", "Resend"],
-    year: "2026",
-    links: [{ label: "Source code", href: github("MediRemind") }],
+    links: [{ label: "View code", href: github("MediRemind") }],
+    image: coverMediRemind,
   },
   {
+    slug: "keyra-protocol",
     name: "Keyra Protocol",
-    description: "Landing page for a GameFi and DeFi project, with tokenomics, FAQs and a whitepaper.",
+    tab: "side",
+    status: "live",
+    years: "2025",
+    description: "Landing page for a GameFi and DeFi project: tokenomics, FAQs and a whitepaper.",
     stack: ["HTML", "CSS", "JavaScript"],
-    year: "2025",
     links: [
-      { label: "Live site", href: "https://keyra-sepia.vercel.app" },
-      { label: "Source code", href: github("keyra-") },
+      { label: "Open project", href: "https://keyra-sepia.vercel.app" },
+      { label: "View code", href: github("keyra-") },
     ],
+    image: shotKeyra,
   },
 ];
-
-export const selectedWorkLede = "Four projects across fintech, developer tooling, mobile payments and web3.";
-
-export const allProjectsHref ="https://github.com/Ayindecodes?tab=repositories";
