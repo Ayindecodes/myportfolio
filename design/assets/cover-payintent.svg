@@ -1,0 +1,32 @@
+<!-- Project cover (illustration, not a screenshot): PayIntent's three rule-based payment types. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <ellipse cx="420" cy="560" rx="250" ry="18" fill="#2a2430" opacity="0.24" filter="url(#contactShadow)"/>
+  <g transform="rotate(7 400 300)">
+    <rect x="268" y="56" width="264" height="486" rx="50" fill="#1b1820" filter="url(#vinyl)"/>
+    <rect x="286" y="80" width="228" height="438" rx="36" fill="#f6efe3"/>
+    <rect x="360" y="96" width="80" height="18" rx="9" fill="#1b1820"/>
+    <rect x="306" y="136" width="120" height="14" rx="7" fill="#d6ccb9"/>
+    <!-- three rule cards: hold until delivery, spending limits, release on approval -->
+    <g>
+      <rect x="302" y="172" width="196" height="88" rx="20" fill="#fffdf9" filter="url(#vinylSmall)"/>
+      <circle cx="342" cy="216" r="24" fill="#8055f5"/>
+      <path d="M332 204 h20 M332 228 h20 M334 204 q0 12 8 12 q-8 0 -8 12 M350 204 q0 12 -8 12 q8 0 8 12" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+      <rect x="378" y="200" width="100" height="12" rx="6" fill="#d6ccb9"/><rect x="378" y="222" width="68" height="10" rx="5" fill="#e6ddcc"/>
+
+      <rect x="302" y="276" width="196" height="88" rx="20" fill="#fffdf9" filter="url(#vinylSmall)"/>
+      <circle cx="342" cy="320" r="24" fill="#8055f5"/>
+      <path d="M331 312 l10 -10 h12 v12 l-10 10 z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/>
+      <circle cx="347" cy="308" r="2.5" fill="#fff"/>
+      <rect x="378" y="304" width="100" height="12" rx="6" fill="#d6ccb9"/><rect x="378" y="326" width="80" height="10" rx="5" fill="#e6ddcc"/>
+
+      <rect x="302" y="380" width="196" height="88" rx="20" fill="#fffdf9" filter="url(#vinylSmall)"/>
+      <circle cx="342" cy="424" r="24" fill="#1d7a4f"/>
+      <path d="M331 424 l8 8 l14 -16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="378" y="408" width="100" height="12" rx="6" fill="#d6ccb9"/><rect x="378" y="430" width="56" height="10" rx="5" fill="#e6ddcc"/>
+    </g>
+  </g>
+  <!-- coin -->
+  <circle cx="628" cy="420" r="72" fill="#e2bd5e" filter="url(#vinyl)"/>
+  <circle cx="628" cy="420" r="48" fill="none" stroke="#b08a35" stroke-width="6" opacity="0.7"/>
+  <path d="M606 394 V446 M606 394 L650 446 M650 394 V446 M594 412 H662 M594 428 H662" fill="none" stroke="#b08a35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+</svg>
