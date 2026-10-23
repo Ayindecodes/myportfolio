@@ -1,35 +1,32 @@
 "use client";
 
-// The music dock: a small vinyl switch fixed to the bottom-left of the home page, so music can be turned on from
-// any screen size. While music plays it credits the current track (CC BY asks for title, artist and licence).
+// The music dock: a small vinyl switch fixed to the bottom-left of the home page, so music can be turned on from any
+// screen size. When it's on, Spotify's player sits above the switch (it shows the song, artist and cover itself).
 
+import { useEffect, useRef } from "react";
 import { RecordIcon } from "@/components/motion/PreferenceToggles";
-import { musicLicense } from "@/content/music";
-import { turnMusicOff, turnMusicOn, useMusic } from "@/lib/motion/music";
-
-const external = { target: "_blank", rel: "noopener noreferrer" } as const;
+import { setPlayerHost, turnMusicOff, turnMusicOn, useMusic } from "@/lib/motion/music";
 
 export function MusicDock() {
-  const { on, current } = useMusic();
+  const { on, playing, failed } = useMusic();
+  const host = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setPlayerHost(host.current);
+    return () => setPlayerHost(null);
+  }, []);
 
   return (
-    <aside className="music-dock" aria-label="Music" data-music={on ? "on" : undefined}>
-      {on && current && (
-        <p className="music-credit">
-          <span className="type-meta">Now playing · {current.style}</span>
-          <span>
-            <a href={current.source} {...external}>
-              {current.title}
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>{" "}
-            by {current.artist} ·{" "}
-            <a href={musicLicense.url} {...external}>
-              {musicLicense.name}
-              <span className="sr-only"> licence (opens in a new tab)</span>
-            </a>
-          </span>
+    <aside className="music-dock" aria-label="Music" data-music={on ? "on" : undefined} data-playing={playing ? "" : undefined}>
+      <div className="music-player" hidden={!on}>
+        {/* Spotify's player is inserted here the first time music is turned on */}
+        <div ref={host} className="music-embed" />
+        <p className="music-note">
+          {failed
+            ? "Spotify couldn’t be reached. Try again in a moment."
+            : "Nigerian and international hits, a new one for each section. Log in to Spotify for full songs; otherwise you’ll hear 30-second previews."}
         </p>
-      )}
+      </div>
       <button
         type="button"
         className="music-button"
