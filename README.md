@@ -48,6 +48,7 @@ Everything visual is generated from sources in `design/`. Edit the source, then 
 | `npm run resume` | `public/resume/resume.pdf` from `design/resume/resume.html` (checks it stays on one page) |
 | `npm run og` | The link-preview image `src/app/opengraph-image.png` from `design/og/og.html` |
 | `npm run wordmark` | The hero's balloon letters and the nav logo as SVG outlines |
+| `FFMPEG=… node design/music/build-music.mjs` | The background beats in `public/music/` (see Music below) |
 
 ## Motion, sound and accessibility
 
@@ -58,14 +59,22 @@ Everything visual is generated from sources in `design/`. Edit the source, then 
 
 ## Music
 
-Visitors can turn on background music with the vinyl **Music** switch at the bottom-left (also in the menu). It plays real hits through **Spotify's official player**, which holds the licences. Nothing from Spotify loads until a visitor taps Music; browsers only allow sound after a tap or click anyway.
+Visitors can turn on background beats with the vinyl **Music** switch at the bottom-left (also in the menu). Nothing plays or downloads until they do; browsers only allow sound after a tap or click anyway.
 
-Songs are random. Each time scrolling settles in a new section, a new song plays, alternating Nigerian and international. No song repeats until every song in its group has played, and when a song ends the next one starts on its own. The pool, in `src/content/music.ts`, holds 27 clean hits:
+The beats are chill instrumentals with a "slowed + reverb" treatment, hosted on the site, so everyone hears them in full with no account. They're random: each time scrolling settles in a new section, the beat crossfades into a new one, alternating chill and Afro. No beat repeats until its group has played through, and near the end of a beat the next one fades in. The music pauses while the tab is hidden.
 
-- **Nigerian:** Rema & Selena Gomez, Wizkid & Tems, Burna Boy, Ayra Starr, Tems, Wizkid & Asake, Davido & FAVE, Asake, CKay, Fireboy DML, SPINALL.
-- **International:** The Weeknd, Drake with Wizkid & Kyla, Dua Lipa, Mark Ronson & Bruno Mars, Bruno Mars, Tyla, Lady Gaga & Bruno Mars, Calvin Harris & Dua Lipa.
+| Beat | Artist | Style |
+| --- | --- | --- |
+| Coffee Jelly | Purrple Cat | Lo-fi |
+| Bookworm | Purrple Cat | Lo-fi |
+| lo-fi relax | Melatronic | Lo-fi hip hop |
+| Busted Tape | 1000 Handz | Chill study |
+| Feel It Heal It | Ketsa | Soul |
+| Afrobeast | Joseph Sacco | Afrobeats |
+| Sun Hat | Joseph Sacco | Afrobeats |
+| Amapiano Beats With Log Drum Groove | Alex Morgan | Amapiano |
 
-Visitors logged in to Spotify in their browser hear full songs; everyone else hears Spotify's 30-second previews. Spotify's terms require its player to stay visible while it plays, which is why it sits in the dock. To add or remove a song, edit `src/content/music.ts` with the track's URI from Spotify (Share → Copy Song Link; the ID is the last part). Stick to clean versions.
+All eight are from [Free Music Archive](https://freemusicarchive.org) under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), and the player credits the one that's playing. `design/music/build-music.mjs` slowed them to 90% speed, added a soft reverb, shortened them to at most 2¼ minutes, matched their loudness and re-encoded them. To change the set, edit `src/content/music.ts` and the list in that script, then run it. Only use music whose licence allows it: commercial hit songs can't be hosted on the site.
 
 ## Contact
 
@@ -83,5 +92,5 @@ Deploy on Vercel. Pushing a branch builds a preview; merging to `main` updates t
 
 - Fonts: Geist and Geist Mono, Fredoka and Kalam, all under the SIL Open Font License, loaded through `next/font`. The balloon letters are Fredoka outlines.
 - Technology logos are from [Simple Icons](https://simpleicons.org) (CC0).
-- Music is streamed through Spotify's embedded player; the songs belong to their artists and labels.
+- Music: "Coffee Jelly" and "Bookworm" by Purrple Cat, "lo-fi relax" by Melatronic, "Busted Tape" by 1000 Handz, "Feel It Heal It" by Ketsa, "Afrobeast" and "Sun Hat" by Joseph Sacco, and "Amapiano Beats With Log Drum Groove" by Alex Morgan. All CC BY 4.0 via Free Music Archive, slowed, with reverb added, shortened and re-encoded.
 - The tactile approach was studied from [yashb.xyz](https://yashb.xyz). Only the techniques were adopted; every image, sound, line of copy and line of code here is original.
