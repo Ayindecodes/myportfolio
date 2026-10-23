@@ -2159,7 +2159,7 @@ main [id] {
 
   /* Footer: one line */
   .site-footer {
-    padding-block: 22px 28px;
+    padding-block: 22px 92px; /* room for the music dock */
     border-top: 1.5px solid var(--hairline);
   }
 
@@ -2194,6 +2194,121 @@ main [id] {
     .sticker-spot {
       position: static;
       margin-top: 44px;
+    }
+  }
+
+
+  /* ===========================================================================
+     Music (opt-in background music) — src/components/music, src/lib/motion/music.ts
+     ========================================================================= */
+
+  .music-dock {
+    position: fixed;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: max(16px, env(safe-area-inset-left));
+    z-index: 40;
+    display: flex;
+    max-width: calc(100vw - 32px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Arrives after the hero has settled, so it never competes with the entrance */
+  html:not([data-calm]) .music-dock {
+    animation: dock-in 0.6s var(--ease-spring-soft) 2.2s both;
+  }
+
+  @keyframes dock-in {
+    from {
+      opacity: 0;
+      translate: 0 18px;
+      scale: 0.9;
+    }
+  }
+
+  .music-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 9px;
+    padding: 0 8px 0 7px;
+    border-radius: 999px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    font-family: var(--font-mono-stack);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .music-state {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgb(42 36 48 / 0.08);
+    color: var(--dim);
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+
+  /* White on the live green is 5.4:1 */
+  [data-music="on"] .music-state {
+    background: var(--live);
+    color: #fff;
+  }
+
+  .music-record {
+    flex-shrink: 0;
+  }
+
+  [data-music="on"] .music-record {
+    animation: record-spin 2.4s linear infinite;
+  }
+
+  html[data-calm] [data-music="on"] .music-record {
+    animation: none;
+  }
+
+  @keyframes record-spin {
+    to {
+      rotate: 360deg;
+    }
+  }
+
+  /* The credit for the track that's playing (CC BY: title, artist, licence) */
+  .music-credit {
+    display: grid;
+    max-width: min(330px, calc(100vw - 32px));
+    gap: 3px;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgb(241 237 228 / 0.94);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 0 1px var(--hairline),
+      0 14px 30px -18px rgb(42 36 48 / 0.55);
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--body);
+    animation: credit-in 0.35s var(--ease-out-soft);
+
+    & a {
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration-line: underline;
+      text-decoration-color: var(--hairline-strong);
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  @keyframes credit-in {
+    from {
+      opacity: 0;
+      translate: 0 6px;
     }
   }
 }
