@@ -9,7 +9,6 @@ Source files for every image, sound and document the redesign ships. Outputs are
 | `npm run og` | `src/app/opengraph-image.png` (1200×630) | `design/og/og.html` |
 | `npm run resume` | `public/resume/resume.pdf` (one page) | `design/resume/resume.html` |
 | `python3 design/generate-sounds.py` | `public/sounds/*.wav` | The script itself (synthesised) |
-| `FFMPEG=… node design/music/build-music.mjs` | `public/music/*.mp3` (background music) | Free Music Archive tracks (CC BY 4.0), cached in `design/.cache/music/` |
 | `npm run wordmark` | `src/components/hero/wordmark.generated.ts` (the hero's balloon letters as SVG paths) | Fredoka, downloaded once into the git-ignored `design/.cache/` |
 
 `npm run og` and `npm run resume` use headless Chromium through `playwright-core`. If no browser is cached, run `npx playwright-core install chromium`.
@@ -51,7 +50,6 @@ The nav wordmark isn't an image. It's live SVG text in Fredoka with the `vinyl` 
 
 - Brand logos come from [Simple Icons](https://simpleicons.org) 16.35.0 (CC0-1.0) and are used only to name technologies. The LinkedIn, email and résumé glyphs are hand-drawn.
 - Sounds are synthesised by `generate-sounds.py`; no samples are used.
-- Background music is five CC BY 4.0 tracks from Free Music Archive (credits in `src/content/music.ts` and the root README), shortened to at most 2½ minutes, loudness-matched to -16 LUFS and re-encoded at 96 kbps.
 - The hero letters are outlines of [Fredoka](https://github.com/googlefonts/Fredoka) (SIL Open Font License 1.1), weight 700, width 100. The balloon material, glints and spacing live in `src/components/hero/`.
 - Screenshots are of Ayinde's own projects, captured from their live sites.
 - Nothing here is taken from yashb.xyz. Its screenshots live only in the git-ignored `.reference/` folder.
