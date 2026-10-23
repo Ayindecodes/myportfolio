@@ -1607,4 +1607,249 @@ main [id] {
       order: 0;
     }
   }
+
+
+  /* ===========================================================================
+     About (Phase 8) — src/components/about
+     ========================================================================= */
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 0.85fr;
+    align-items: center;
+    gap: clamp(36px, 5vw, 80px);
+  }
+
+  /* The personal-projects note: a soft vinyl card so it reads as an aside, not small print */
+  .about-note {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 20px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    color: var(--body);
+  }
+
+  /* Portrait in a thick ink frame */
+  .about-portrait {
+    position: relative;
+    justify-self: center;
+    width: min(340px, 80%);
+    margin: 0;
+  }
+
+  .portrait-frame {
+    display: block;
+    overflow: hidden;
+    border: 3px solid var(--ink);
+    border-radius: 36px;
+    background: var(--vinyl-cream);
+    box-shadow:
+      10px 12px 0 var(--ink),
+      0 40px 60px -30px rgb(42 36 48 / 0.5);
+    rotate: -2deg;
+  }
+
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .portrait-label {
+    position: absolute;
+    right: -8%;
+    bottom: -7%;
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--vinyl-accent);
+    box-shadow: var(--shadow-vinyl-accent);
+    font-family: var(--font-hand-stack);
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    color: #fff;
+    rotate: -6deg;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* The arrow points from the label up at the portrait */
+  .portrait-arrow {
+    position: absolute;
+    top: -34px;
+    left: -30px;
+    width: 38px;
+    rotate: 180deg;
+  }
+
+  /* GitHub calendar */
+  .gh-calendar {
+    --cell: clamp(10px, 1.25vw, 15px);
+    margin: clamp(56px, 9vh, 96px) 0 0;
+    padding: clamp(18px, 3vw, 28px);
+    border-radius: var(--radius-card);
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl-lg);
+  }
+
+  /* Right-to-left scroller: narrow screens open on the latest weeks */
+  .gh-scroll {
+    margin-top: 14px;
+    overflow-x: auto;
+    direction: rtl;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+
+  .gh-grid {
+    display: grid;
+    width: max-content;
+    grid-template-rows: auto repeat(7, var(--cell));
+    grid-auto-columns: var(--cell);
+    gap: 3px;
+    margin-inline: auto; /* centred when it fits; when it doesn't, it overflows to the left */
+    direction: ltr;
+  }
+
+  .gh-month {
+    grid-row: 1;
+    padding-bottom: 4px;
+    font-family: var(--font-mono-stack);
+    font-size: 0.68rem;
+    white-space: nowrap;
+    color: var(--dim);
+  }
+
+  .gh-day {
+    width: var(--cell);
+    height: var(--cell);
+    border-radius: 3px;
+    background: rgb(42 36 48 / 0.07);
+    transition: scale 0.18s var(--ease-spring-soft);
+
+    &[data-level="1"] {
+      background: #d9ccff;
+    }
+
+    &[data-level="2"] {
+      background: #b59cff;
+    }
+
+    &[data-level="3"] {
+      background: #8f6cfb;
+    }
+
+    &[data-level="4"] {
+      background: var(--accent-ink);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gh-grid .gh-day:hover {
+      scale: 1.45;
+    }
+  }
+
+  .gh-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-family: var(--font-mono-stack);
+    font-size: 0.7rem;
+    color: var(--dim);
+
+    & .gh-day {
+      --cell: 11px;
+    }
+  }
+
+  /* Tools I use: two rows drifting opposite ways. Each track holds its list twice and slides by half. */
+  .stack-block {
+    margin-top: clamp(64px, 10vh, 112px);
+  }
+
+  .marquee {
+    overflow: hidden;
+    margin-top: 6px;
+    padding-block: 12px;
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: marquee var(--marquee-time, 46s) linear infinite;
+  }
+
+  .marquee[data-reverse] .marquee-track {
+    --marquee-time: 58s;
+    animation-direction: reverse;
+  }
+
+  .marquee-logo {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    margin-right: 22px;
+  }
+
+  .marquee-chip {
+    flex-shrink: 0;
+    margin-right: 10px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .marquee:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
+  }
+
+  /* Calm: no drift; the rows wrap and the duplicate copy goes away */
+  html[data-calm] .marquee {
+    mask-image: none;
+  }
+
+  html[data-calm] .marquee-track {
+    width: auto;
+    flex-wrap: wrap;
+    row-gap: 12px;
+    animation: none;
+  }
+
+  html[data-calm] .marquee-track > [data-copy] {
+    display: none;
+  }
+
+  @media (max-width: 920px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about-portrait {
+      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .marquee-logo {
+      width: 48px;
+      height: 48px;
+      margin-right: 16px;
+    }
+  }
 }
