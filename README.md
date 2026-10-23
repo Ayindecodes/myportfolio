@@ -58,17 +58,14 @@ Everything visual is generated from sources in `design/`. Edit the source, then 
 
 ## Music
 
-Visitors can turn on background music with the vinyl **Music** switch at the bottom-left (also in the menu). It plays real hits through **Spotify's official player**, which holds the licences. Nothing from Spotify loads until a visitor taps Music; browsers only allow sound after a tap or click anyway. Then Spotify's player appears in the dock, and the song changes once scrolling settles in a new section.
+Visitors can turn on background music with the vinyl **Music** switch at the bottom-left (also in the menu). It plays real hits through **Spotify's official player**, which holds the licences. Nothing from Spotify loads until a visitor taps Music; browsers only allow sound after a tap or click anyway.
 
-| Section | Song | |
-| --- | --- | --- |
-| Hero | "Calm Down" by Rema & Selena Gomez | Nigerian |
-| Work | "Blinding Lights" by The Weeknd | International |
-| About | "Essence" by Wizkid feat. Tems | Nigerian |
-| Journey | "One Dance" by Drake feat. Wizkid & Kyla | International |
-| Contact | "Last Last" by Burna Boy | Nigerian |
+Songs are random. Each time scrolling settles in a new section, a new song plays, alternating Nigerian and international. No song repeats until every song in its group has played, and when a song ends the next one starts on its own. The pool, in `src/content/music.ts`, holds 27 clean hits:
 
-Visitors logged in to Spotify in their browser hear full songs; everyone else hears Spotify's 30-second previews. Spotify's terms require its player to stay visible while it plays, which is why it sits in the dock. To change a song, edit `src/content/music.ts` and use the track's URI from Spotify (Share → Copy Song Link; the ID is the last part). Stick to clean versions.
+- **Nigerian:** Rema & Selena Gomez, Wizkid & Tems, Burna Boy, Ayra Starr, Tems, Wizkid & Asake, Davido & FAVE, Asake, CKay, Fireboy DML, SPINALL.
+- **International:** The Weeknd, Drake with Wizkid & Kyla, Dua Lipa, Mark Ronson & Bruno Mars, Bruno Mars, Tyla, Lady Gaga & Bruno Mars, Calvin Harris & Dua Lipa.
+
+Visitors logged in to Spotify in their browser hear full songs; everyone else hears Spotify's 30-second previews. Spotify's terms require its player to stay visible while it plays, which is why it sits in the dock. To add or remove a song, edit `src/content/music.ts` with the track's URI from Spotify (Share → Copy Song Link; the ID is the last part). Stick to clean versions.
 
 ## Contact
 
