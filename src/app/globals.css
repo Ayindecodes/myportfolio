@@ -456,4 +456,155 @@ main [id] {
       transform: translate(2px, -2px);
     }
   }
+
+  /* ===========================================================================
+     Motion (Phase 4) — behaviour lives in src/lib/motion; these are the visual states.
+     Hidden "before" states only apply with <html class="js"> and without data-calm,
+     so content is always visible without JavaScript or with reduced motion.
+     ========================================================================= */
+
+  /* Squish: transforms are written by src/lib/motion/squish.ts */
+  [data-squish] {
+    transform-origin: 50% 100%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Gloss: a highlight that follows the mouse (position from src/lib/motion/gloss.ts) */
+  [data-gloss] {
+    position: relative;
+    isolation: isolate;
+    --gloss: 0.85;
+  }
+
+  [data-gloss]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at var(--gx, 35%) var(--gy, 20%),
+      rgb(255 255 255 / var(--gloss)) 0,
+      rgb(255 255 255 / calc(var(--gloss) * 0.2)) 32%,
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .btn-dark {
+    --gloss: 0.3;
+  }
+
+  .btn-accent,
+  .btn-primary {
+    --gloss: 0.45;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    [data-gloss]:hover::after {
+      opacity: 1;
+    }
+  }
+
+  html[data-calm] [data-gloss]::after {
+    display: none;
+  }
+
+  /* Reveal: blocks fade up; "pop" grows in with a spring; "words" staggers each word */
+  [data-reveal] {
+    transition:
+      opacity 0.7s var(--ease-out-soft),
+      translate 0.8s var(--ease-out-soft),
+      scale 0.75s var(--ease-spring-soft),
+      rotate 0.75s var(--ease-spring-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  html.js:not([data-calm]) [data-reveal]:not([data-reveal="words"], [data-reveal="pop"], [data-revealed]) {
+    opacity: 0;
+    translate: 0 24px;
+  }
+
+  html.js:not([data-calm]) [data-reveal="pop"]:not([data-revealed]) {
+    opacity: 0;
+    scale: 0.8;
+    rotate: -4deg;
+  }
+
+  .reveal-words .rw {
+    display: inline-block;
+    white-space: pre;
+    transition:
+      opacity 0.6s var(--ease-out-soft),
+      translate 0.8s var(--ease-out-soft),
+      filter 0.6s var(--ease-out-soft);
+    transition-delay: calc(var(--reveal-delay, 0ms) + var(--wd, 0ms));
+  }
+
+  html.js:not([data-calm]) .reveal-words:not([data-revealed]) .rw {
+    opacity: 0;
+    translate: 0 0.45em;
+    filter: blur(5px);
+  }
+
+  /* Deliberate line breaks only on wide screens; narrow screens let the heading wrap naturally */
+  .reveal-line {
+    display: block;
+  }
+
+  @media (max-width: 920px) {
+    .reveal-line {
+      display: inline;
+    }
+  }
+
+  /* Rotating word: every word is stacked in one cell (slot = widest word); only the current one shows */
+  .rotating {
+    position: relative;
+    display: inline-grid;
+    white-space: nowrap;
+  }
+
+  .rotating-word {
+    position: relative;
+    grid-area: 1 / 1;
+    justify-self: start;
+    color: var(--accent-ink);
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .rotating-word[data-current] {
+    visibility: visible;
+    opacity: 1;
+    animation: word-in 0.45s var(--ease-out-soft) both;
+  }
+
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      translate: 0 0.3em;
+    }
+  }
+
+  /* Calm: the OS asks for reduced motion, or the visitor switched motion off */
+  html[data-calm] {
+    scroll-behavior: auto;
+  }
+
+  html[data-calm] *,
+  html[data-calm] *::before,
+  html[data-calm] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  html[data-calm] .hand-ink path {
+    animation: none;
+  }
 }
