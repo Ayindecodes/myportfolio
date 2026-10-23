@@ -110,3 +110,56 @@
   --ease-out-soft: var(--ease-out-soft);
   --ease-spring: var(--ease-spring-soft);
 }
+
+/* ===========================================================================
+   Base
+   ========================================================================= */
+
+html {
+  background: var(--bg);
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans-stack);
+  font-size: var(--fs-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+/* In the base layer, so a component can restyle its own focus ring (the fan cards ring the card, not the link) */
+@layer base {
+  :focus-visible {
+    outline: 2.5px solid var(--accent-ink);
+    outline-offset: 3px;
+  }
+}
+
+main [id] {
+  scroll-margin-top: var(--header-offset);
+}
+
+/* Sections receive focus after an in-page link (src/lib/motion/anchors.ts); no ring on the whole section */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
