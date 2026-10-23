@@ -1,0 +1,83 @@
+<!--
+  PLACEHOLDER avatar: an anonymous "hacker" vinyl toy. Replace with a portrait of Ayinde later (task 23);
+  keep the file name so the rendered asset path (src/assets/redesign/avatar.webp) stays the same.
+  Lighting recipe (docs/redesign/BRIEF.md): soft key light from the upper left, warm fill, matte vinyl.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <defs>
+    <radialGradient id="hoodInside" cx="0.5" cy="0.58" r="0.62">
+      <stop offset="0" stop-color="#3a2f52"/>
+      <stop offset="0.55" stop-color="#1e1928"/>
+      <stop offset="1" stop-color="#0f0d12"/>
+    </radialGradient>
+
+    <radialGradient id="screenGlow" cx="0.5" cy="1" r="0.75">
+      <stop offset="0" stop-color="#a993fa" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#a993fa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- contact shadow -->
+  <ellipse cx="400" cy="748" rx="230" ry="24" fill="#2a2430" opacity="0.3" filter="url(#contactShadow)"/>
+
+  <!-- body (hoodie) -->
+  <path filter="url(#vinyl)" fill="#7c51f2"
+        d="M214 742 C206 628 252 548 400 542 C548 548 594 628 586 742 Q400 770 214 742 Z"/>
+
+  <!-- hood -->
+  <path filter="url(#vinyl)" fill="#8358f6"
+        d="M400 96 C572 96 650 222 642 360 C636 476 566 556 400 560 C234 556 164 476 158 360 C150 222 228 96 400 96 Z"/>
+
+  <!-- hood seam stitching -->
+  <path d="M400 100 C401 140 401 172 400 196" fill="none" stroke="#5b33cc" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12" opacity="0.8"/>
+
+  <!-- hood opening (the face recess) -->
+  <path fill="url(#hoodInside)"
+        d="M400 192 C510 192 566 280 562 368 C558 452 494 506 400 507 C306 506 242 452 238 368 C234 280 290 192 400 192 Z"/>
+  <!-- light from the laptop screen falling on the face -->
+  <ellipse cx="400" cy="470" rx="150" ry="70" fill="url(#screenGlow)"/>
+  <!-- rolled hood rim, inflated -->
+  <path filter="url(#vinylSmall)" fill="none" stroke="#8a62f7" stroke-width="30"
+        d="M400 192 C510 192 566 280 562 368 C558 452 494 506 400 507 C306 506 242 452 238 368 C234 280 290 192 400 192 Z"/>
+  <path fill="none" stroke="#5b33cc" stroke-width="3" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.7"
+        d="M400 168 C526 168 590 270 586 368 C582 466 508 530 400 531 C292 530 218 466 214 368 C210 270 274 168 400 168 Z"/>
+
+  <!-- glowing eyes -->
+  <g filter="url(#glow)">
+    <rect x="320" y="318" width="48" height="70" rx="24" fill="#f7f3ec"/>
+    <rect x="432" y="318" width="48" height="70" rx="24" fill="#f7f3ec"/>
+  </g>
+  <circle cx="335" cy="336" r="7" fill="#ffffff"/>
+  <circle cx="447" cy="336" r="7" fill="#ffffff"/>
+  <!-- small smile -->
+  <path d="M378 432 Q400 448 422 432" fill="none" stroke="#c6b6ff" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- drawstrings -->
+  <g fill="none" stroke="#f3eee4" stroke-width="11" stroke-linecap="round" filter="url(#vinylSmall)">
+    <path d="M356 522 C352 548 349 570 347 592"/>
+    <path d="M444 522 C448 548 451 570 453 592"/>
+  </g>
+  <rect x="337" y="586" width="20" height="30" rx="9" fill="#e4dac8" filter="url(#vinylSmall)"/>
+  <rect x="443" y="586" width="20" height="30" rx="9" fill="#e4dac8" filter="url(#vinylSmall)"/>
+
+  <!-- arms -->
+  <g fill="none" stroke="#7a4ff0" stroke-width="64" stroke-linecap="round" filter="url(#vinyl)">
+    <path d="M258 598 C222 632 230 668 286 646"/>
+    <path d="M542 598 C578 632 570 668 514 646"/>
+  </g>
+
+  <!-- laptop: base peeking out below the lid, lid facing the viewer -->
+  <rect x="256" y="736" width="288" height="30" rx="12" fill="#d8cdb9" filter="url(#vinylSmall)"/>
+  <rect x="270" y="604" width="260" height="146" rx="22" fill="#f1ebe0" filter="url(#vinyl)"/>
+  <!-- sticker on the lid -->
+  <circle cx="400" cy="680" r="40" fill="#8055f5" filter="url(#vinylSmall)"/>
+  <g fill="none" stroke="#f7f3ec" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M382 664 L366 680 L382 696"/>
+    <path d="M418 664 L434 680 L418 696"/>
+    <path d="M407 660 L393 700"/>
+  </g>
+
+  <!-- mitten hands gripping the top corners of the lid -->
+  <ellipse cx="290" cy="628" rx="29" ry="25" transform="rotate(-18 290 628)" fill="#2b2632" filter="url(#vinylSmall)"/>
+  <ellipse cx="510" cy="628" rx="29" ry="25" transform="rotate(18 510 628)" fill="#2b2632" filter="url(#vinylSmall)"/>
+</svg>
