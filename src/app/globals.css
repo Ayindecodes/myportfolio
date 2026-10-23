@@ -607,4 +607,238 @@ main [id] {
   html[data-calm] .hand-ink path {
     animation: none;
   }
+
+  /* ===========================================================================
+     Nav (Phase 5) — src/components/nav
+     ========================================================================= */
+
+  .site-nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    padding-block: clamp(14px, 2.2vw, 22px);
+    transition:
+      padding 0.35s var(--ease-out-soft),
+      background-color 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+
+  .site-nav.is-scrolled {
+    padding-block: 10px;
+    background: rgb(241 237 228 / 0.82);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+    backdrop-filter: blur(12px) saturate(1.1);
+    box-shadow:
+      0 1px 0 var(--hairline),
+      0 14px 30px -26px rgb(42 36 48 / 0.55);
+  }
+
+  /* Logo: the wordmark and the avatar take turns in a small vinyl window */
+  .logo-reel {
+    display: block;
+    flex-shrink: 0;
+    width: 116px;
+    height: 46px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+  }
+
+  .logo-reel-track {
+    display: flex;
+    flex-direction: column;
+    animation: logo-reel 7s cubic-bezier(0.7, 0, 0.25, 1.05) infinite;
+  }
+
+  .logo-reel-frame {
+    display: grid;
+    place-items: center;
+    height: 46px;
+    padding-inline: 10px;
+  }
+
+  @keyframes logo-reel {
+    0%,
+    42% {
+      translate: 0 0;
+    }
+    50%,
+    92% {
+      translate: 0 -46px;
+    }
+    100% {
+      translate: 0 -92px;
+    }
+  }
+
+  html[data-calm] .logo-reel-track {
+    animation: none;
+  }
+
+  /* Centre pill and the sliding ink */
+  .nav-pill {
+    position: relative;
+    padding: 5px;
+    border-radius: 999px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+  }
+
+  .nav-ink {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 0;
+    width: 0;
+    opacity: 0;
+    border-radius: 999px;
+    background: var(--vinyl-dark);
+    box-shadow: var(--shadow-vinyl-dark);
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+
+  .nav-link {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 999px;
+    font-size: 0.906rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--body);
+    transition: color 0.25s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--ink);
+      }
+    }
+
+    &.is-active {
+      color: var(--on-dark);
+    }
+  }
+
+  .menu-button {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    color: var(--ink);
+  }
+
+  /* Full-screen menu: a native modal <dialog> */
+  .quick-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--bg);
+    color: var(--ink);
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      overlay 0.3s allow-discrete,
+      display 0.3s allow-discrete;
+  }
+
+  .quick-menu[open] {
+    opacity: 1;
+  }
+
+  .quick-menu::backdrop {
+    background: transparent;
+  }
+
+  .quick-menu-inner {
+    padding-block: clamp(20px, 3vh, 28px) 48px;
+    transition: translate 0.45s var(--ease-out-soft);
+  }
+
+  @starting-style {
+    .quick-menu[open] {
+      opacity: 0;
+    }
+
+    .quick-menu[open] .quick-menu-inner {
+      translate: 0 18px;
+    }
+  }
+
+  html:has(.quick-menu[open]) {
+    overflow: hidden;
+  }
+
+  .menu-big {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding-block: 6px;
+    font-family: var(--font-display-stack);
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-weight: 700;
+    font-stretch: 112%;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    transition:
+      color 0.2s ease,
+      translate 0.3s var(--ease-out-soft);
+
+    &.is-active {
+      color: var(--accent-ink);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--accent-ink);
+        translate: 8px 0;
+      }
+    }
+  }
+
+  .menu-small {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 4px;
+    font-family: var(--font-hand-stack);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--ink);
+    transition: color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--accent-ink);
+      }
+    }
+  }
+
+  .menu-hint kbd {
+    display: inline-grid;
+    min-width: 1.6em;
+    place-items: center;
+    padding: 2px 5px;
+    border-radius: 6px;
+    background: var(--vinyl-cream);
+    box-shadow: var(--shadow-vinyl);
+    color: var(--ink);
+  }
+
+  @media (hover: none) {
+    .menu-hint {
+      display: none;
+    }
+  }
 }
