@@ -1,7 +1,8 @@
 "use client";
 
 // The music dock: a small vinyl switch fixed to the bottom-left of the home page, so music can be turned on from any
-// screen size. When it's on, Spotify's player sits above the switch (it shows the song, artist and cover itself).
+// screen size. When it's on, Spotify's player sits above the switch (it shows the song, artist and cover itself),
+// playing random hits that change as the visitor scrolls (see src/lib/motion/music.ts).
 
 import { useEffect, useRef } from "react";
 import { RecordIcon } from "@/components/motion/PreferenceToggles";
@@ -24,7 +25,7 @@ export function MusicDock() {
         <p className="music-note">
           {failed
             ? "Spotify couldn’t be reached. Try again in a moment."
-            : "Nigerian and international hits, a new one for each section. Log in to Spotify for full songs; otherwise you’ll hear 30-second previews."}
+            : "Random Nigerian and international hits that change as you scroll. Log in to Spotify for full songs; otherwise you’ll hear 30-second previews."}
         </p>
       </div>
       <button
