@@ -1961,4 +1961,239 @@ main [id] {
       gap: 14px;
     }
   }
+
+
+  /* ===========================================================================
+     Contact and footer (Phase 10) — src/components/contact
+     ========================================================================= */
+
+  .contact {
+    position: relative;
+    overflow-x: clip;
+  }
+
+  .contact-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* The email button: a dark vinyl pill holding the address, with a Copy chip */
+  .email-blob {
+    --gloss: 0.3;
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: clamp(10px, 1.6vw, 16px);
+    padding: clamp(10px, 1.4vw, 14px) clamp(10px, 1.4vw, 14px) clamp(10px, 1.4vw, 14px) clamp(18px, 2.6vw, 30px);
+    border-radius: 999px;
+    background: var(--vinyl-dark);
+    box-shadow: var(--shadow-vinyl-dark);
+    font-size: clamp(1rem, 2.4vw, 1.6rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--on-dark);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .email-address {
+    overflow-wrap: anywhere;
+  }
+
+  .email-chip {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.12);
+    font-family: var(--font-mono-stack);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background-color 0.25s ease;
+
+    & svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+
+  /* White on the live green is 5.4:1 */
+  .email-blob[data-copied] .email-chip {
+    background: var(--live);
+    color: #fff;
+  }
+
+  .email-tick path {
+    stroke-dasharray: 100;
+    animation: ink-draw 0.45s var(--ease-out-soft) both;
+  }
+
+  /* Dashed tear line with punched notches at each end */
+  .tear-line {
+    position: relative;
+    width: min(100%, 760px);
+    margin-block: clamp(48px, 8vh, 76px);
+    border-top: 2px dashed var(--hairline-strong);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: -9px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: inset 0 2px 3px rgb(42 36 48 / 0.18);
+    }
+
+    &::before {
+      left: -8px;
+    }
+
+    &::after {
+      right: -8px;
+    }
+  }
+
+  /* Inflated social icons */
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(20px, 4.5vw, 48px);
+  }
+
+  .social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 16px;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus-visible {
+      outline-offset: 6px;
+    }
+  }
+
+  .social-icon {
+    width: clamp(64px, 8.5vw, 88px);
+    height: auto;
+    transition:
+      translate 0.38s var(--ease-spring-soft),
+      rotate 0.38s var(--ease-spring-soft),
+      scale 0.38s var(--ease-spring-soft);
+  }
+
+  .social-label {
+    font-family: var(--font-mono-stack);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    transition: color 0.2s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .social:hover .social-icon {
+      translate: 0 -5px;
+      rotate: -4deg;
+      scale: 1.05;
+    }
+
+    .social:hover .social-label {
+      color: var(--ink);
+    }
+  }
+
+  /* Closing sticker: die-cut white edge, tilted; a hover straightens it a little */
+  .sticker-spot {
+    position: absolute;
+    right: clamp(0px, 3vw, 40px);
+    bottom: 0;
+  }
+
+  .sticker-tilt {
+    display: inline-block;
+    rotate: -9deg;
+    transition: rotate 0.5s var(--ease-spring-soft);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .sticker-tilt:hover {
+      rotate: -2deg;
+    }
+  }
+
+  .sticker {
+    display: inline-block;
+    max-width: 9.5em; /* two lines: "Thanks for / stopping by!" (the width includes padding and border) */
+    text-wrap: balance;
+    padding: 14px 20px;
+    border: 4px solid #fff;
+    border-radius: 22px;
+    background: var(--vinyl-accent);
+    box-shadow:
+      0 18px 28px -14px rgb(106 63 224 / 0.6),
+      0 1px 2px rgb(42 36 48 / 0.18);
+    font-family: var(--font-hand-stack);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    color: #fff;
+    user-select: none;
+    will-change: transform;
+  }
+
+  /* Footer: one line */
+  .site-footer {
+    padding-block: 22px 28px;
+    border-top: 1.5px solid var(--hairline);
+  }
+
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 20px;
+    font-family: var(--font-mono-stack);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .footer-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink);
+    transition: color 0.2s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        color: var(--accent-ink);
+      }
+    }
+  }
+
+  @media (max-width: 920px) {
+    .sticker-spot {
+      position: static;
+      margin-top: 44px;
+    }
+  }
 }
