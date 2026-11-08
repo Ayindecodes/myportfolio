@@ -1,11 +1,13 @@
 // Personal details, links and copy used across the site.
 // Edit this file (and projects.ts) to update the portfolio's content.
 
+// The site's public address: set explicitly, or taken from the host at build time (Vercel's production URL, or
+// Netlify's URL variable), so canonical links and social previews never point at localhost.
 const productionUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined) ??
+  process.env.URL ??
+  "http://localhost:3000";
 
 export const site = {
   url: productionUrl,
