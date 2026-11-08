@@ -130,16 +130,6 @@ export const education = [
   },
 ];
 
-// Personal builds, dated from GitHub repo creation and last-push dates (checked 2026-10-23).
-export const buildTimeline = [
-  { when: "Apr 2026 – now", name: "Web X-Ray", note: "Started an automated website tester; still shipping updates." },
-  { when: "Apr 2026", name: "PayIntent", note: "Built a rule-based payments app in Expo and React Native." },
-  { when: "Dec 2025 – Jan 2026", name: "MediRemind", note: "Built medication reminders with email-code sign-in in Next.js." },
-  { when: "Oct 2025", name: "Keyra Protocol", note: "Shipped a landing page for a GameFi and DeFi project." },
-  { when: "Aug 2025 – Apr 2026", name: "Quicksurf", note: "Backend from August, web app from September: airtime and data payments end to end." },
-  { when: "Oct 2024", name: "First public code", note: "HTML and Tailwind practice sites, the start of building in public." },
-];
-
 // 04 · Say hello (copy from docs/redesign/CONTENT.md §19)
 export const contact = {
   label: "Say hello",
