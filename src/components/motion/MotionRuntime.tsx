@@ -12,6 +12,11 @@ import { installSquish, resetSquish } from "@/lib/motion/squish";
 
 export function MotionRuntime() {
   useEffect(() => {
+    // Safety net: if React ever had to rebuild the page from scratch, the markers the boot script put on <html>
+    // are gone. Put them back so the JS-only layout (e.g. the Work tabs) still shows.
+    document.documentElement.classList.add("js");
+    document.documentElement.toggleAttribute("data-calm", isCalm());
+
     const cleanups = [installSquish(), installGloss(), installReveal(), installAnchorScroll(), watchSystemMotion()];
 
     const stopCalm = onCalmChange(() => {
