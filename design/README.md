@@ -28,7 +28,7 @@ New objects must use these filters rather than their own lighting, so they sit i
 
 | Asset | Use | Status |
 | --- | --- | --- |
-| `avatar.webp`, `avatar-head.webp` | About portrait; second frame of the nav logo reel | **Placeholder** (anonymous hacker) |
+| `avatar.webp`, `avatar-head.webp` | About portrait; second frame of the nav logo reel | Anonymous chibi hacker: big hood, headphones, sticker-covered laptop |
 | `padlock-body.webp` + `padlock-shackle.webp` | Hero prop; separate layers so the shackle can pop open | Final |
 | `card.webp` | Hero prop | Final |
 | `logo-*.webp` (10) | Tech-stack strip: React, Next.js, TypeScript, Python, Django, Tailwind, PostgreSQL, Docker, FastAPI, Git | Final |
@@ -41,7 +41,7 @@ New objects must use these filters rather than their own lighting, so they sit i
 
 The nav wordmark isn't an image. It's live SVG text in Fredoka with the `vinyl` filter, the same technique as `og.html`. Journey logo tiles are CSS monograms, so they need no images.
 
-## Replacing the placeholder avatar
+## Swapping the avatar for a real portrait
 
 1. Redraw `design/assets/avatar.svg` from a photo (or swap in a rendered portrait with a transparent background). Keep the 800×800 canvas and the file name.
 2. If the head moves, adjust the `avatar-head` crop in `render-assets.mjs`.

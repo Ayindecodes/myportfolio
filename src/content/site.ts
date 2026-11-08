@@ -47,8 +47,8 @@ export const about = {
   personalNote:
     "Everything in Selected work is a personal project. My day-to-day work is for a company, and that code lives in private repositories, so you won’t find it on my GitHub.",
   portrait: {
-    // Placeholder until Ayinde sends a real portrait (see design/README.md).
-    alt: "Ayinde as a vinyl toy: a purple hoodie, glowing eyes and a laptop with a code sticker",
+    // An anonymous chibi on purpose (Ayinde's choice); see design/README.md to swap in a real portrait.
+    alt: "Ayinde as a chibi vinyl toy: a big purple hood with headphones, glowing eyes and a happy smile, and a laptop covered in stickers",
     label: "me, in vinyl",
   },
 };

@@ -39,7 +39,7 @@ To add a project, add an entry and an image. Use a screenshot in `design/screens
 
 ## Images, résumé and social preview
 
-Everything visual is generated from sources in `design/`. Edit the source, then run the command. See `design/README.md` for details, including how to swap the placeholder avatar for a real portrait.
+Everything visual is generated from sources in `design/`. Edit the source, then run the command. See `design/README.md` for details, including how to swap the chibi avatar for a real portrait.
 
 | Command | Rebuilds |
 | --- | --- |
