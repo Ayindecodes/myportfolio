@@ -14,12 +14,14 @@ export type ProjectStatus = "live" | "building" | "open-source";
 
 export type ProjectLink = { label: string; href: string };
 
-export type WorkTab = "products" | "side";
+export type WorkTab = "projects" | "products" | "sites";
 
 export type Project = {
   slug: string;
   name: string;
   tab: WorkTab;
+  /** shown in the hero's card fan */
+  featured?: boolean;
   status: ProjectStatus;
   years?: string;
   description: string;
@@ -28,9 +30,11 @@ export type Project = {
   image: StaticImageData;
 };
 
+// Three tabs, like the reference's toggle: a short list in each instead of one long column.
 export const workTabs: { id: WorkTab; label: string }[] = [
+  { id: "projects", label: "Projects" },
   { id: "products", label: "Products" },
-  { id: "side", label: "Side builds" },
+  { id: "sites", label: "Site Builds" },
 ];
 
 export const statusLabels: Record<ProjectStatus, string> = {
@@ -46,6 +50,7 @@ export const projects: Project[] = [
     slug: "quicksurf",
     name: "Quicksurf",
     tab: "products",
+    featured: true,
     status: "live",
     years: "2025–26",
     description:
@@ -61,7 +66,8 @@ export const projects: Project[] = [
   {
     slug: "web-x-ray",
     name: "Web X-Ray",
-    tab: "products",
+    tab: "projects",
+    featured: true,
     status: "building",
     years: "2026",
     description:
@@ -73,7 +79,8 @@ export const projects: Project[] = [
   {
     slug: "payintent",
     name: "PayIntent",
-    tab: "products",
+    tab: "projects",
+    featured: true,
     status: "open-source",
     years: "2026",
     description:
@@ -86,6 +93,7 @@ export const projects: Project[] = [
     slug: "landkrypt",
     name: "LandKrypt",
     tab: "products",
+    featured: true,
     status: "live",
     description:
       "A marketplace that splits virtual properties into fractional NFTs. Holders stake, vote on how a property develops and earn rewards, with daily XP streaks that keep them coming back.",
@@ -96,7 +104,7 @@ export const projects: Project[] = [
   {
     slug: "noblekin-bio",
     name: "NobleKin Bio",
-    tab: "side",
+    tab: "sites",
     status: "live",
     description: "Website for an African bioinformatics institute, with courses in genomics, transcriptomics and biostatistics.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
@@ -106,7 +114,7 @@ export const projects: Project[] = [
   {
     slug: "mediremind",
     name: "MediRemind",
-    tab: "side",
+    tab: "projects",
     status: "open-source",
     years: "2025–26",
     description: "Medication reminders, mood logging and therapy sessions, with email-code sign-in.",
@@ -117,7 +125,7 @@ export const projects: Project[] = [
   {
     slug: "keyra-protocol",
     name: "Keyra Protocol",
-    tab: "side",
+    tab: "sites",
     status: "live",
     years: "2025",
     description: "Landing page for a GameFi and DeFi project: tokenomics, FAQs and a whitepaper.",
