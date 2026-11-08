@@ -1,83 +1,136 @@
 <!--
-  PLACEHOLDER avatar: an anonymous "hacker" vinyl toy. Replace with a portrait of Ayinde later (task 23);
-  keep the file name so the rendered asset path (src/assets/redesign/avatar.webp) stays the same.
+  Avatar: a chibi "hacker" vinyl toy. Anonymous on purpose (the face is a glowing void in the hood), with chibi
+  proportions: a big round hooded head, headphones, a small body, sneakers, and a laptop covered in stickers
+  (code, a padlock for security-first, a naira coin for fintech, a star).
+  Keep the file name so the rendered asset path (src/assets/redesign/avatar.webp) stays the same.
   Lighting recipe (docs/redesign/BRIEF.md): soft key light from the upper left, warm fill, matte vinyl.
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
   <defs>
-    <radialGradient id="hoodInside" cx="0.5" cy="0.58" r="0.62">
-      <stop offset="0" stop-color="#3a2f52"/>
-      <stop offset="0.55" stop-color="#1e1928"/>
+    <radialGradient id="hoodInside" cx="0.5" cy="0.6" r="0.64">
+      <stop offset="0" stop-color="#3d3157"/>
+      <stop offset="0.55" stop-color="#201a2c"/>
       <stop offset="1" stop-color="#0f0d12"/>
     </radialGradient>
-
-    <radialGradient id="screenGlow" cx="0.5" cy="1" r="0.75">
-      <stop offset="0" stop-color="#a993fa" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#a993fa" stop-opacity="0"/>
+    <radialGradient id="screenGlow" cx="0.5" cy="1" r="0.8">
+      <stop offset="0" stop-color="#b9a4ff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#b9a4ff" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="coin" cx="0.38" cy="0.32" r="0.75">
+      <stop offset="0" stop-color="#ffe08a"/>
+      <stop offset="0.6" stop-color="#f2c14e"/>
+      <stop offset="1" stop-color="#c8942a"/>
+    </radialGradient>
+    <filter id="blush" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
   </defs>
 
   <!-- contact shadow -->
-  <ellipse cx="400" cy="748" rx="230" ry="24" fill="#2a2430" opacity="0.3" filter="url(#contactShadow)"/>
+  <ellipse cx="400" cy="760" rx="226" ry="22" fill="#2a2430" opacity="0.3" filter="url(#contactShadow)"/>
 
-  <!-- body (hoodie) -->
+  <!-- small body (hoodie) -->
   <path filter="url(#vinyl)" fill="#7c51f2"
-        d="M214 742 C206 628 252 548 400 542 C548 548 594 628 586 742 Q400 770 214 742 Z"/>
+        d="M266 756 C262 664 302 606 400 602 C498 606 538 664 534 756 Q400 776 266 756 Z"/>
 
-  <!-- hood -->
+
+  <!-- headphone band, behind the hood -->
+  <path d="M162 320 C162 -22 638 -22 638 320" fill="none" stroke="#2b2632" stroke-width="30" stroke-linecap="round" filter="url(#vinylSmall)"/>
+
+  <!-- big round hood (the head) -->
   <path filter="url(#vinyl)" fill="#8358f6"
-        d="M400 96 C572 96 650 222 642 360 C636 476 566 556 400 560 C234 556 164 476 158 360 C150 222 228 96 400 96 Z"/>
+        d="M400 86 C562 86 652 196 652 334 C652 474 562 578 400 582 C238 578 148 474 148 334 C148 196 238 86 400 86 Z"/>
+  <!-- seam stitching down the crown -->
+  <path d="M400 92 C401 130 401 162 400 186" fill="none" stroke="#5b33cc" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12" opacity="0.8"/>
 
-  <!-- hood seam stitching -->
-  <path d="M400 100 C401 140 401 172 400 196" fill="none" stroke="#5b33cc" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 12" opacity="0.8"/>
-
-  <!-- hood opening (the face recess) -->
+  <!-- the face: a glowing void inside the hood -->
   <path fill="url(#hoodInside)"
-        d="M400 192 C510 192 566 280 562 368 C558 452 494 506 400 507 C306 506 242 452 238 368 C234 280 290 192 400 192 Z"/>
-  <!-- light from the laptop screen falling on the face -->
-  <ellipse cx="400" cy="470" rx="150" ry="70" fill="url(#screenGlow)"/>
-  <!-- rolled hood rim, inflated -->
-  <path filter="url(#vinylSmall)" fill="none" stroke="#8a62f7" stroke-width="30"
-        d="M400 192 C510 192 566 280 562 368 C558 452 494 506 400 507 C306 506 242 452 238 368 C234 280 290 192 400 192 Z"/>
+        d="M400 196 C512 196 584 266 582 356 C580 444 508 506 400 508 C292 506 220 444 218 356 C216 266 288 196 400 196 Z"/>
+  <ellipse cx="400" cy="478" rx="160" ry="66" fill="url(#screenGlow)"/>
+  <!-- rolled, inflated hood rim -->
+  <path filter="url(#vinylSmall)" fill="none" stroke="#8b63f8" stroke-width="34"
+        d="M400 196 C512 196 584 266 582 356 C580 444 508 506 400 508 C292 506 220 444 218 356 C216 266 288 196 400 196 Z"/>
   <path fill="none" stroke="#5b33cc" stroke-width="3" stroke-dasharray="2 11" stroke-linecap="round" opacity="0.7"
-        d="M400 168 C526 168 590 270 586 368 C582 466 508 530 400 531 C292 530 218 466 214 368 C210 270 274 168 400 168 Z"/>
+        d="M400 170 C530 170 608 252 606 356 C604 460 524 532 400 534 C276 532 196 460 194 356 C192 252 270 170 400 170 Z"/>
 
-  <!-- glowing eyes -->
+  <!-- big glowing eyes with sparkle highlights -->
   <g filter="url(#glow)">
-    <rect x="320" y="318" width="48" height="70" rx="24" fill="#f7f3ec"/>
-    <rect x="432" y="318" width="48" height="70" rx="24" fill="#f7f3ec"/>
+    <ellipse cx="336" cy="350" rx="34" ry="44" fill="#e4dbff"/>
+    <ellipse cx="464" cy="350" rx="34" ry="44" fill="#e4dbff"/>
   </g>
-  <circle cx="335" cy="336" r="7" fill="#ffffff"/>
-  <circle cx="447" cy="336" r="7" fill="#ffffff"/>
-  <!-- small smile -->
-  <path d="M378 432 Q400 448 422 432" fill="none" stroke="#c6b6ff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="324" cy="332" r="12" fill="#ffffff"/>
+  <circle cx="452" cy="332" r="12" fill="#ffffff"/>
+  <circle cx="346" cy="368" r="5" fill="#ffffff"/>
+  <circle cx="474" cy="368" r="5" fill="#ffffff"/>
+
+  <!-- blush -->
+  <g filter="url(#blush)" opacity="0.6">
+    <ellipse cx="292" cy="414" rx="30" ry="14" fill="#d48cff"/>
+    <ellipse cx="508" cy="414" rx="30" ry="14" fill="#d48cff"/>
+  </g>
+
+  <!-- open, happy smile -->
+  <path d="M370 424 Q400 428 430 424 Q426 458 400 460 Q374 458 370 424 Z" fill="#c6b6ff"/>
+  <path d="M384 446 Q400 452 416 446 Q410 458 400 459 Q390 458 384 446 Z" fill="#9b7cf5"/>
+
+  <!-- headphone ear cups, over the hood -->
+  <g filter="url(#vinyl)">
+    <rect x="118" y="276" width="86" height="132" rx="40" fill="#2b2632"/>
+    <rect x="596" y="276" width="86" height="132" rx="40" fill="#2b2632"/>
+  </g>
+  <g filter="url(#vinylSmall)">
+    <circle cx="161" cy="342" r="24" fill="#8055f5"/>
+    <circle cx="639" cy="342" r="24" fill="#8055f5"/>
+  </g>
 
   <!-- drawstrings -->
   <g fill="none" stroke="#f3eee4" stroke-width="11" stroke-linecap="round" filter="url(#vinylSmall)">
-    <path d="M356 522 C352 548 349 570 347 592"/>
-    <path d="M444 522 C448 548 451 570 453 592"/>
-  </g>
-  <rect x="337" y="586" width="20" height="30" rx="9" fill="#e4dac8" filter="url(#vinylSmall)"/>
-  <rect x="443" y="586" width="20" height="30" rx="9" fill="#e4dac8" filter="url(#vinylSmall)"/>
-
-  <!-- arms -->
-  <g fill="none" stroke="#7a4ff0" stroke-width="64" stroke-linecap="round" filter="url(#vinyl)">
-    <path d="M258 598 C222 632 230 668 286 646"/>
-    <path d="M542 598 C578 632 570 668 514 646"/>
+    <path d="M362 560 C360 576 358 590 357 604"/>
+    <path d="M438 560 C440 576 442 590 443 604"/>
   </g>
 
-  <!-- laptop: base peeking out below the lid, lid facing the viewer -->
-  <rect x="256" y="736" width="288" height="30" rx="12" fill="#d8cdb9" filter="url(#vinylSmall)"/>
-  <rect x="270" y="604" width="260" height="146" rx="22" fill="#f1ebe0" filter="url(#vinyl)"/>
-  <!-- sticker on the lid -->
-  <circle cx="400" cy="680" r="40" fill="#8055f5" filter="url(#vinylSmall)"/>
-  <g fill="none" stroke="#f7f3ec" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M382 664 L366 680 L382 696"/>
-    <path d="M418 664 L434 680 L418 696"/>
-    <path d="M407 660 L393 700"/>
+  <!-- stubby arms -->
+  <g fill="none" stroke="#7a4ff0" stroke-width="58" stroke-linecap="round" filter="url(#vinyl)">
+    <path d="M286 624 C256 652 268 682 306 664"/>
+    <path d="M514 624 C544 652 532 682 494 664"/>
   </g>
 
-  <!-- mitten hands gripping the top corners of the lid -->
-  <ellipse cx="290" cy="628" rx="29" ry="25" transform="rotate(-18 290 628)" fill="#2b2632" filter="url(#vinylSmall)"/>
-  <ellipse cx="510" cy="628" rx="29" ry="25" transform="rotate(18 510 628)" fill="#2b2632" filter="url(#vinylSmall)"/>
+  <!-- laptop: base under the lid, lid facing the viewer -->
+  <rect x="262" y="738" width="276" height="28" rx="12" fill="#d8cdb9" filter="url(#vinylSmall)"/>
+  <rect x="276" y="612" width="248" height="140" rx="24" fill="#f1ebe0" filter="url(#vinyl)"/>
+
+  <!-- sneakers peeking out at the bottom corners of the laptop -->
+  <g filter="url(#vinylSmall)">
+    <ellipse cx="282" cy="764" rx="44" ry="24" fill="#f3eee4"/>
+    <ellipse cx="518" cy="764" rx="44" ry="24" fill="#f3eee4"/>
+  </g>
+  <path d="M242 774 Q282 788 322 774 M478 774 Q518 788 558 774" fill="none" stroke="#8055f5" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- stickers -->
+  <!-- code -->
+  <circle cx="356" cy="684" r="34" fill="#8055f5" filter="url(#vinylSmall)"/>
+  <g fill="none" stroke="#f7f3ec" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M341 670 L327 684 L341 698"/>
+    <path d="M371 670 L385 684 L371 698"/>
+    <path d="M361 666 L351 702"/>
+  </g>
+  <!-- padlock -->
+  <path d="M440 652 L440 642 C440 626 466 626 466 642 L466 652" fill="none" stroke="#e4dac8" stroke-width="7" stroke-linecap="round"/>
+  <rect x="430" y="650" width="46" height="36" rx="10" fill="#2b2632" filter="url(#vinylSmall)"/>
+  <circle cx="453" cy="665" r="5" fill="#c6b6ff"/>
+  <!-- naira coin -->
+  <circle cx="470" cy="718" r="22" fill="url(#coin)" filter="url(#vinylSmall)"/>
+  <g fill="none" stroke="#8a5d14" stroke-width="4" stroke-linecap="round">
+    <path d="M462 730 L462 706 L478 730 L478 706"/>
+    <path d="M457 714 L483 714 M457 722 L483 722"/>
+  </g>
+  <!-- star -->
+  <path d="M306 642 Q309 653 320 656 Q309 659 306 670 Q303 659 292 656 Q303 653 306 642 Z" fill="#8055f5"/>
+
+  <!-- mitten hands on the top corners of the lid -->
+  <ellipse cx="300" cy="632" rx="28" ry="24" transform="rotate(-18 300 632)" fill="#2b2632" filter="url(#vinylSmall)"/>
+  <ellipse cx="500" cy="632" rx="28" ry="24" transform="rotate(18 500 632)" fill="#2b2632" filter="url(#vinylSmall)"/>
+
+  <!-- a little sparkle -->
+  <path d="M676 150 Q680 168 698 172 Q680 176 676 194 Q672 176 654 172 Q672 168 676 150 Z" fill="#8055f5"/>
 </svg>
