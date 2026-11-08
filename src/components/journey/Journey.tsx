@@ -1,13 +1,12 @@
-// 03 · Journey (Phase 9): work, education and a dated list of personal builds, as ruled rows.
-// Only verified entries: work as Ayinde described it (current employers unnamed by choice), education as
-// confirmed, and build dates from GitHub.
+// 03 · Journey (Phase 9): work and education, as ruled rows.
+// Only verified entries: work as Ayinde described it (current employers unnamed by choice) and education as confirmed.
 
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealWords } from "@/components/motion/RevealWords";
 import { StarBullet } from "@/components/ui/Doodles";
 import { SectionTag } from "@/components/ui/SectionTag";
-import { buildTimeline, education, experience } from "@/content/site";
+import { education, experience } from "@/content/site";
 
 type IconName = "work" | "intern" | "school";
 
@@ -87,22 +86,6 @@ export function Journey() {
             <Row key={item.institution} icon="school" place={item.institution} when={item.years} index={index}>
               <h4 className="journey-role">{item.field}</h4>
             </Row>
-          ))}
-        </ol>
-      </div>
-
-      <div className="journey-group">
-        <h3 className="journey-heading">
-          Personal builds <span className="type-meta normal-case">Dated from GitHub</span>
-        </h3>
-        <ol className="journey-list">
-          {buildTimeline.map((build, index) => (
-            <Reveal as="li" key={build.name} delay={index * 60} className="build-row">
-              <p className="type-meta">{build.when}</p>
-              <p className="type-body">
-                <strong className="font-semibold text-ink">{build.name}</strong> · {build.note}
-              </p>
-            </Reveal>
           ))}
         </ol>
       </div>
