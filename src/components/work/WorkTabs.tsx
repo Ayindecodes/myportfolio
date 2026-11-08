@@ -1,6 +1,6 @@
 "use client";
 
-// Work's two-way toggle (tasks 76, 80) built as real tabs: arrow keys, Home and End move between them, and only
+// Work's toggle (tasks 76, 80) built as real tabs: arrow keys, Home and End move between them, and only
 // the selected tab is in the Tab order. Switching fades the old list out and the new one in (instant in calm mode).
 // Links to a project (#work-quicksurf, e.g. from the hero cards or a shared URL) open the tab that holds it first.
 // Without JavaScript the toggle is hidden and both lists show, one after the other.
@@ -110,7 +110,13 @@ export function WorkTabs({ panels }: { panels: WorkPanel[] }) {
 
   return (
     <div ref={root} className="work-tabs">
-      <div className="work-toggle" role="tablist" aria-label="Kind of project" onKeyDown={onKeyDown}>
+      <div
+        className="work-toggle"
+        role="tablist"
+        aria-label="Kind of project"
+        onKeyDown={onKeyDown}
+        style={{ ["--slots" as string]: panels.length }}
+      >
         <span ref={thumbEl} className="work-thumb" aria-hidden="true" />
         {panels.map((panel, index) => {
           const isSelected = panel.id === selected;
@@ -127,7 +133,7 @@ export function WorkTabs({ panels }: { panels: WorkPanel[] }) {
               aria-controls={`work-panel-${panel.id}`}
               tabIndex={isSelected ? 0 : -1}
               className="work-tab"
-              aria-label={`${panel.label} ${panel.slugs.length} projects`} // contains the visible "Products 4", for voice control
+              aria-label={`${panel.label} ${panel.slugs.length} projects`} // contains the visible "Projects 3", for voice control
               onClick={() => select(panel.id, true)}
             >
               {panel.label}{" "}

@@ -1339,7 +1339,7 @@ main [id] {
     top: 5px;
     bottom: 5px;
     left: 5px;
-    width: calc(50% - 5px);
+    width: calc((100% - 10px) / var(--slots, 2));
     border-radius: 999px;
     background: var(--vinyl-dark);
     box-shadow: var(--shadow-vinyl-dark);
@@ -1595,6 +1595,13 @@ main [id] {
     .work-toggle {
       display: grid;
       width: 100%;
+    }
+
+    /* three tabs share a phone's width */
+    .work-tab {
+      gap: 6px;
+      padding: 0 8px;
+      font-size: 0.86rem;
     }
 
     .project-row,
