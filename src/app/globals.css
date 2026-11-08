@@ -1942,18 +1942,8 @@ main [id] {
     }
   }
 
-  .build-row {
-    display: grid;
-    grid-template-columns: clamp(200px, 24vw, 280px) 1fr;
-    align-items: baseline;
-    gap: 6px clamp(18px, 3vw, 44px);
-    padding-block: 14px;
-    border-bottom: 1.5px solid var(--hairline);
-  }
-
   @media (max-width: 620px) {
-    .journey-row,
-    .build-row {
+    .journey-row {
       grid-template-columns: 1fr;
     }
 
