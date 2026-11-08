@@ -1,4 +1,4 @@
-// 01 · Selected work (Phase 7): heading, then the Products / Side builds tabs, each a list of project rows.
+// 01 · Selected work (Phase 7): heading, then the Projects / Products / Site Builds tabs, each a short list of rows.
 // The rows are server-rendered, so every project and link is in the HTML; WorkTabs only decides which list shows.
 // Task 81 (a small-experiments grid) is skipped on purpose: there are no experiments to show yet.
 
@@ -33,7 +33,7 @@ export function Work() {
         <RevealWords text={"Built, shipped,\nstill tinkering."} />
       </h2>
       <Reveal as="p" delay={200} className="type-body mt-5 max-w-[34em]">
-        Personal projects: payments, developer tools and a few side builds. Switch tabs for the smaller ones.
+        Personal projects: developer tools, live products and a few site builds. Flip between them below.
       </Reveal>
       <WorkTabs panels={panels} />
     </section>
