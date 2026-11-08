@@ -1,10 +1,10 @@
-// The hero's hand of cards (task 73): the Products projects, fanned like cards. They deal in on load, lift on
+// The hero's hand of cards (task 73): the featured projects, fanned like cards. They deal in on load, lift on
 // hover and jump to the project in Work, which opens the right tab first (see WorkTabs).
 
 import Image from "next/image";
 import { projects } from "@/content/projects";
 
-const cards = projects.filter((project) => project.tab === "products");
+const cards = projects.filter((project) => project.featured);
 
 export function CardFan() {
   return (
