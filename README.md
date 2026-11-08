@@ -28,7 +28,6 @@ All words live in two files. Change them, save, and the page updates.
 | Tools in the drifting chips row | `stack` |
 | Work history (newest first; `current: true` adds the green "Now" badge) | `experience` |
 | Education | `education` |
-| Personal builds timeline (dated from GitHub) | `buildTimeline` |
 | Contact heading, lead line and sticker text | `contact` |
 | GitHub contribution calendar on or off | `github.showCalendar` |
 

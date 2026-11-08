@@ -50,7 +50,7 @@ Sources: Quicksurf's idempotent purchases and Paystack webhooks; your "security-
 
 Status badges: **Live** (green), **Building** (purple), **Open source** (muted).
 
-## 16 · Journey: work, education and build timeline (Decided)
+## 16 · Journey: work and education (Decided)
 
 **Heading:** How I got here, one build at a time. ("one repo" became "one build" once company work, which isn't on GitHub, joined the section.)
 
@@ -65,16 +65,7 @@ Status badges: **Live** (green), **Building** (purple), **Open source** (muted).
 
 **Education:** Software Engineering · University of Lagos (UNILAG), 2022–2026. Software Development · NIIT Ikeja, 2025 (one year).
 
-**Personal builds** (GitHub repo creation and last-push dates, checked 2026-10-23; LandKrypt and NobleKin Bio left out because their dates aren't verifiable):
-
-| When | Entry | One line |
-| --- | --- | --- |
-| Apr 2026 – now | **Web X-Ray** | Started an automated website tester; still shipping updates. |
-| Apr 2026 | **PayIntent** | Built a rule-based payments app in Expo and React Native. |
-| Dec 2025 – Jan 2026 | **MediRemind** | Built medication reminders with email-code sign-in in Next.js. |
-| Oct 2025 | **Keyra Protocol** | Shipped a landing page for a GameFi and DeFi project. |
-| Aug 2025 – Apr 2026 | **Quicksurf** | Backend from August, web app from September: airtime and data payments end to end. |
-| Oct 2024 | **First public code** | HTML and Tailwind practice sites, the start of building in public. |
+Personal builds timeline: removed on 2026-11-08 at your request.
 
 ## 17 · Résumé (Decided: regenerate)
 
