@@ -19,7 +19,7 @@ const widths = { avatar: 900 };
 
 // Smaller variants cut out of a rendered source (coordinates in the source's 800-unit viewBox).
 const crops = {
-  "avatar-head": { from: "avatar", left: 150, top: 90, size: 500, width: 160 },
+  "avatar-head": { from: "avatar", left: 100, top: 34, size: 600, width: 160 },
 };
 
 const materials = (await readFile(join(SRC, "_materials.svg"), "utf8")).replace(/<!--[\s\S]*?-->/, "");
