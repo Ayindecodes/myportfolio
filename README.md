@@ -33,7 +33,7 @@ All words live in two files. Change them, save, and the page updates.
 
 ### `src/content/projects.ts`
 
-Each project has a `tab` (`"products"` or `"side"`), a `status` (`"live"`, `"building"` or `"open-source"`), optional `years`, a `description`, a `stack` list, `links` and an `image`. **The first link is the main one**: it becomes the dark button and the target of the image and its "Open ↗" pill. The Products projects also make up the hero's card fan.
+Each project has a `tab` (`"projects"`, `"products"` or `"sites"`, the three buttons in Work), a `status` (`"live"`, `"building"` or `"open-source"`), optional `years`, a `description`, a `stack` list, `links` and an `image`. **The first link is the main one**: it becomes the dark button and the target of the image and its "Open ↗" pill. Projects marked `featured: true` make up the hero's card fan.
 
 To add a project, add an entry and an image. Use a screenshot in `design/screens/` (turned into a browser mock-up by `npm run assets`) or a cover in `design/assets/`.
 

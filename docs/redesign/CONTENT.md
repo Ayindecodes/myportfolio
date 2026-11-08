@@ -29,12 +29,15 @@ Sources: Quicksurf's idempotent purchases and Paystack webhooks; your "security-
 2. API builder
 3. fintech tinkerer
 
-## 14 · Work tabs (Decided)
+## 14 · Work tabs (Decided; three tabs since 2026-11-08, so each list stays short like the reference)
 
 | Tab | Projects, in order |
 | --- | --- |
-| **Products** (default) | Quicksurf, Web X-Ray, PayIntent, LandKrypt |
-| **Side builds** | NobleKin Bio, MediRemind, Keyra Protocol |
+| **Projects** (default) | Web X-Ray, PayIntent, MediRemind |
+| **Products** | Quicksurf, LandKrypt |
+| **Site Builds** | NobleKin Bio, Keyra Protocol |
+
+The hero's card fan still shows Quicksurf, Web X-Ray, PayIntent and LandKrypt (`featured`).
 
 ## 15 · Projects (Draft)
 
@@ -88,7 +91,7 @@ GitHub (github.com/Ayindecodes) · LinkedIn (linkedin.com/in/ayindecodes, confir
 | Place | Copy |
 | --- | --- |
 | Section labels | 01 Selected work · 02 About me · 03 Journey · 04 Say hello |
-| Work heading and intro | **Built, shipped, still tinkering.** Personal projects: payments, developer tools and a few side builds. Switch tabs for the smaller ones. |
+| Work heading and intro | **Built, shipped, still tinkering.** Personal projects: developer tools, live products and a few site builds. Flip between them below. |
 | Journey heading | **How I got here, one build at a time.** |
 | Contact heading | **Let's build something people can rely on.** |
 | Project links | "Open project ↗" · "View code ↗" · cursor pill: "Open ↗" |
